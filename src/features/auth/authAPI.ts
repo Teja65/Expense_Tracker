@@ -23,6 +23,8 @@ export async function signupWithEmail(values: AuthFormValues) {
     user: {
       uid: credential.user.uid,
       email: credential.user.email ?? values.email,
+      displayName: credential.user.displayName ?? '',
+      photoURL: credential.user.photoURL ?? '',
     },
     token,
   };
@@ -41,6 +43,8 @@ export async function loginWithEmail(values: AuthFormValues) {
     user: {
       uid: credential.user.uid,
       email: credential.user.email ?? values.email,
+      displayName: credential.user.displayName ?? '',
+      photoURL: credential.user.photoURL ?? '',
     },
     token,
   };
@@ -59,6 +63,8 @@ export async function loginWithGoogle() {
     user: {
       uid: result.user.uid,
       email: result.user.email ?? '',
+      displayName: result.user.displayName ?? '',
+      photoURL: result.user.photoURL ?? '',
     },
     token,
   };
@@ -76,7 +82,13 @@ export async function loginWithGithub() {
     user: {
       uid: result.user.uid,
       email: result.user.email ?? '',
+      displayName: result.user.displayName ?? '',
+      photoURL: result.user.photoURL ?? '',
     },
     token,
   };
+}
+
+export async function logout() {
+  await auth.signOut();
 }

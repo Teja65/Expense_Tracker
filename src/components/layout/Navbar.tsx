@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useAppSelector } from '../../app/hooks';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { clearUser } from '../../features/auth/authSlice';
+import { logout } from '../../features/auth/authAPI';
 
 const navLinks = [
   { label: 'Home', path: '/' },
@@ -10,8 +12,30 @@ const navLinks = [
 
 export default function Navbar() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const isAuthenticated = Boolean(useAppSelector((state) => state.auth.token));
+  const user = useAppSelector((state) => state.auth.user);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      dispatch(clearUser());
+      navigate('/');
+      setIsOpen(false);
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
+  // Filter nav links based on authentication status
+  const filteredNavLinks = navLinks.filter((link) => {
+    if (isAuthenticated) {
+      return link.path === '/'; // Only show Home when authenticated
+    }
+    return link.path !== '/'; // Show Login/Signup when not authenticated
+  });
 
   return (
     <header className='relative border-b border-slate-800 bg-slate-950/80 backdrop-blur-xl'>
@@ -55,7 +79,7 @@ export default function Navbar() {
           } absolute left-4 right-4 top-full mt-2 z-20 rounded-3xl border border-slate-800 bg-slate-950/95 p-4 shadow-2xl shadow-slate-950/30 md:static md:top-auto md:left-auto md:right-auto md:mt-0 md:block md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none`}
         >
           <div className='flex flex-col gap-2 md:flex-row md:items-center md:justify-end md:gap-1'>
-            {navLinks.map((link) => (
+            {filteredNavLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
@@ -71,13 +95,48 @@ export default function Navbar() {
             ))}
 
             {isAuthenticated ? (
-              <Link
-                to='/dashboard'
-                onClick={() => setIsOpen(false)}
-                className='rounded-full border border-slate-700 bg-slate-900 px-4 py-3 text-sm font-medium text-slate-100 transition duration-200 hover:border-cyan-400 hover:text-cyan-200 md:ml-2 md:px-3 md:py-2'
-              >
-                Dashboard
-              </Link>
+              <>
+                <Link
+                  to='/dashboard'
+                  onClick={() => setIsOpen(false)}
+                  className='rounded-full border border-slate-700 bg-slate-900 px-4 py-3 text-sm font-medium text-slate-100 transition duration-200 hover:border-cyan-400 hover:text-cyan-200 md:ml-2 md:px-3 md:py-2'
+                >
+                  Dashboard
+                </Link>
+
+                {/* User Profile Section */}
+                <div className='mt-4 flex items-center gap-3 border-t border-slate-800 pt-4 md:mt-0 md:border-t-0 md:pt-0 md:ml-4'>
+                  {user?.photoURL ? (
+                    <img
+                      src={user.photoURL}
+                      alt={user.displayName || 'User'}
+                      className='h-8 w-8 rounded-full border border-slate-700'
+                    />
+                  ) : (
+                    <div className='flex h-8 w-8 items-center justify-center rounded-full border border-slate-700 bg-slate-800 text-sm font-medium text-slate-300'>
+                      {(user?.displayName ||
+                        user?.email ||
+                        'U')[0].toUpperCase()}
+                    </div>
+                  )}
+                  <div className='flex-1 min-w-0'>
+                    <p className='text-sm font-medium text-slate-200 truncate'>
+                      {user?.displayName ||
+                        user?.email?.split('@')[0] ||
+                        'User'}
+                    </p>
+                    <p className='text-xs text-slate-400 truncate'>
+                      {user?.email}
+                    </p>
+                  </div>
+                  <button
+                    onClick={handleLogout}
+                    className='rounded-full border border-red-700 bg-red-900/20 px-3 py-1 text-xs font-medium text-red-300 transition duration-200 hover:border-red-600 hover:bg-red-900/40 hover:text-red-200'
+                  >
+                    Logout
+                  </button>
+                </div>
+              </>
             ) : null}
           </div>
         </nav>
