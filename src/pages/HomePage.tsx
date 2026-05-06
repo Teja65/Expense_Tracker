@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../app/hooks';
 import Container from '../components/ui/Container';
 import Button from '../components/ui/Button';
 
@@ -20,6 +21,8 @@ const features = [
 ];
 
 export default function HomePage() {
+  const isAuthenticated = Boolean(useAppSelector((state) => state.auth.token));
+
   return (
     <main className='relative overflow-hidden bg-slate-950 text-slate-100'>
       <div className='absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-cyan-600/40 to-transparent' />
@@ -41,14 +44,24 @@ export default function HomePage() {
                 </p>
               </div>
               <div className='flex flex-col gap-4 sm:flex-row'>
-                <Link to='/signup'>
-                  <Button className='w-full sm:w-auto'>Get started</Button>
-                </Link>
-                <Link to='/login' className='w-full sm:w-auto'>
-                  <Button variant='secondary' className='w-full sm:w-auto'>
-                    Log in
-                  </Button>
-                </Link>
+                {isAuthenticated ? (
+                  <Link to='/dashboard'>
+                    <Button className='w-full sm:w-auto'>
+                      Go to Dashboard
+                    </Button>
+                  </Link>
+                ) : (
+                  <>
+                    <Link to='/signup'>
+                      <Button className='w-full sm:w-auto'>Get started</Button>
+                    </Link>
+                    <Link to='/login' className='w-full sm:w-auto'>
+                      <Button variant='secondary' className='w-full sm:w-auto'>
+                        Log in
+                      </Button>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
 
