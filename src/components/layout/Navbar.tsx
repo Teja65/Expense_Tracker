@@ -12,13 +12,6 @@ export default function Navbar() {
   const isAuthenticated = Boolean(useAppSelector((state) => state.auth.token));
   const user = useAppSelector((state) => state.auth.user);
 
-  // Debug authentication state
-  console.log('Navbar auth state:', {
-    isAuthenticated,
-    user,
-    token: !!useAppSelector((state) => state.auth.token),
-  });
-
   const handleLogout = async () => {
     try {
       await logout();
