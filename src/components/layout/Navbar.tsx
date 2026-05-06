@@ -4,12 +4,6 @@ import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { clearUser } from '../../features/auth/authSlice';
 import { logout } from '../../features/auth/authAPI';
 
-const navLinks = [
-  { label: 'Home', path: '/' },
-  { label: 'Login', path: '/login' },
-  { label: 'Signup', path: '/signup' },
-];
-
 export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -17,6 +11,13 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const isAuthenticated = Boolean(useAppSelector((state) => state.auth.token));
   const user = useAppSelector((state) => state.auth.user);
+
+  // Debug authentication state
+  console.log('Navbar auth state:', {
+    isAuthenticated,
+    user,
+    token: !!useAppSelector((state) => state.auth.token),
+  });
 
   const handleLogout = async () => {
     try {
@@ -29,13 +30,17 @@ export default function Navbar() {
     }
   };
 
-  // Filter nav links based on authentication status
-  const filteredNavLinks = navLinks.filter((link) => {
-    if (isAuthenticated) {
-      return link.path === '/'; // Only show Home when authenticated
-    }
-    return link.path !== '/'; // Show Login/Signup when not authenticated
-  });
+  // Alternative approach: define authenticated and unauthenticated links separately
+  const authenticatedLinks = [{ label: 'Home', path: '/' }];
+  const unauthenticatedLinks = [
+    { label: 'Home', path: '/' },
+    { label: 'Login', path: '/login' },
+    { label: 'Signup', path: '/signup' },
+  ];
+
+  const displayLinks = isAuthenticated
+    ? authenticatedLinks
+    : unauthenticatedLinks;
 
   return (
     <header className='relative border-b border-slate-800 bg-slate-950/80 backdrop-blur-xl'>
@@ -79,7 +84,7 @@ export default function Navbar() {
           } absolute left-4 right-4 top-full mt-2 z-20 rounded-3xl border border-slate-800 bg-slate-950/95 p-4 shadow-2xl shadow-slate-950/30 md:static md:top-auto md:left-auto md:right-auto md:mt-0 md:block md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none`}
         >
           <div className='flex flex-col gap-2 md:flex-row md:items-center md:justify-end md:gap-1'>
-            {filteredNavLinks.map((link) => (
+            {displayLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
