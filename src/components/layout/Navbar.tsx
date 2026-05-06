@@ -133,22 +133,12 @@ export default function Navbar() {
                     </p>
                   </div>
 
-                  <div className='flex items-center gap-2'>
-                    <Link
-                      to='/privacy'
-                      onClick={() => setIsOpen(false)}
-                      className='rounded-full border border-slate-600 bg-slate-800 px-3 py-1 text-xs font-medium text-slate-300 transition duration-200 hover:border-slate-500 hover:text-slate-200'
-                    >
-                      Privacy
-                    </Link>
-
-                    <button
-                      onClick={handleLogout}
-                      className='rounded-full border border-red-700 bg-red-900/20 px-3 py-1 text-xs font-medium text-red-300 transition duration-200 hover:border-red-600 hover:bg-red-900/40 hover:text-red-200'
-                    >
-                      Logout
-                    </button>
-                  </div>
+                  <button
+                    onClick={handleLogout}
+                    className='rounded-full border border-red-700 bg-red-900/20 px-3 py-1 text-xs font-medium text-red-300 transition duration-200 hover:border-red-600 hover:bg-red-900/40 hover:text-red-200'
+                  >
+                    Logout
+                  </button>
                 </div>
               </>
             ) : null}
