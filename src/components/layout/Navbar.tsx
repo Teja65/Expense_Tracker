@@ -106,29 +106,33 @@ export default function Navbar() {
 
                 {/* User Profile Section */}
                 <div className='mt-4 flex items-center gap-3 border-t border-slate-800 pt-4 md:mt-0 md:border-t-0 md:pt-0 md:ml-4'>
-                  {user?.photoURL ? (
-                    <img
-                      src={user.photoURL}
-                      alt={user.displayName || 'User'}
-                      className='h-8 w-8 rounded-full border border-slate-700'
-                    />
-                  ) : (
-                    <div className='flex h-8 w-8 items-center justify-center rounded-full border border-slate-700 bg-slate-800 text-sm font-medium text-slate-300'>
-                      {(user?.displayName ||
-                        user?.email ||
-                        'U')[0].toUpperCase()}
-                    </div>
-                  )}
+                  {/* User Icon */}
+                  <div className='flex h-8 w-8 items-center justify-center rounded-full border border-slate-700 bg-slate-800'>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      viewBox='0 0 24 24'
+                      fill='none'
+                      stroke='currentColor'
+                      strokeWidth='2'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      className='h-4 w-4 text-slate-300'
+                    >
+                      <path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2' />
+                      <circle cx='12' cy='7' r='4' />
+                    </svg>
+                  </div>
+
                   <div className='flex-1 min-w-0'>
-                    <p className='text-sm font-medium text-slate-200 truncate'>
+                    <p className='text-sm font-medium text-slate-200'>
+                      Welcome back,{' '}
                       {user?.displayName ||
                         user?.email?.split('@')[0] ||
                         'User'}
-                    </p>
-                    <p className='text-xs text-slate-400 truncate'>
-                      {user?.email}
+                      !
                     </p>
                   </div>
+
                   <button
                     onClick={handleLogout}
                     className='rounded-full border border-red-700 bg-red-900/20 px-3 py-1 text-xs font-medium text-red-300 transition duration-200 hover:border-red-600 hover:bg-red-900/40 hover:text-red-200'
