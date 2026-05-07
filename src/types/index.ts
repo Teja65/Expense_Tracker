@@ -12,6 +12,22 @@ export interface AuthFormValues {
 
 export interface Expense {
   id: string;
+  amount: number;
+  date: string;
+  description: string;
+  category: string;
+  createdAt: string;
+}
+
+export interface ExpenseFormValues {
+  amount: string;
+  date: string;
+  description: string;
+  category: string;
+}
+
+export interface Expense {
+  id: string;
   description: string;
   amount: number;
   category: string;

@@ -44,23 +44,22 @@ export default function HomePage() {
                 </p>
               </div>
               <div className='flex flex-col gap-4 sm:flex-row'>
-                {isAuthenticated ? (
-                  <Link to='/dashboard'>
-                    <Button className='w-full sm:w-auto'>
+                <Link to='/signup'>
+                  <Button className='w-full sm:w-auto'>Get started</Button>
+                </Link>
+                {!isAuthenticated && (
+                  <Link to='/login' className='w-full sm:w-auto'>
+                    <Button variant='secondary' className='w-full sm:w-auto'>
+                      Log in
+                    </Button>
+                  </Link>
+                )}
+                {isAuthenticated && (
+                  <Link to='/dashboard' className='w-full sm:w-auto'>
+                    <Button variant='secondary' className='w-full sm:w-auto'>
                       Go to Dashboard
                     </Button>
                   </Link>
-                ) : (
-                  <>
-                    <Link to='/signup'>
-                      <Button className='w-full sm:w-auto'>Get started</Button>
-                    </Link>
-                    <Link to='/login' className='w-full sm:w-auto'>
-                      <Button variant='secondary' className='w-full sm:w-auto'>
-                        Log in
-                      </Button>
-                    </Link>
-                  </>
                 )}
               </div>
             </div>
