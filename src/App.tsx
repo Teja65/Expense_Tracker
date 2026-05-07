@@ -6,6 +6,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './services/firebase';
 import { store } from './app/store';
 import { setUser, clearUser } from './features/auth/authSlice';
+import { ThemeProvider } from './contexts/ThemeContext';
 import AppRoutes from './routes/AppRoutes';
 import Navbar from './components/layout/Navbar';
 
@@ -42,13 +43,15 @@ function App() {
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <AuthListener />
-        <BrowserRouter>
-          <div className='min-h-screen bg-slate-950 text-slate-100'>
-            <Navbar />
-            <AppRoutes />
-          </div>
-        </BrowserRouter>
+        <ThemeProvider defaultTheme='system'>
+          <AuthListener />
+          <BrowserRouter>
+            <div className='min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100'>
+              <Navbar />
+              <AppRoutes />
+            </div>
+          </BrowserRouter>
+        </ThemeProvider>
       </QueryClientProvider>
     </Provider>
   );

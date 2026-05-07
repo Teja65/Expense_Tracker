@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { clearUser } from '../../features/auth/authSlice';
 import { logout } from '../../features/auth/authAPI';
+import ThemeToggle from '../ui/ThemeToggle';
 
 const authenticatedNavLinks = [
   { label: 'Home', path: '/' },
@@ -94,6 +95,11 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+
+            {/* Theme Toggle */}
+            <div className='md:ml-2'>
+              <ThemeToggle />
+            </div>
 
             {isAuthenticated ? (
               <div className='flex items-center gap-2 md:ml-2'>
