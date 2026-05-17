@@ -3,10 +3,10 @@
     "development"
   ],
   "hints": {
-    "axe/forms": [
+    "axe/aria": [
       "default",
       {
-        "select-name": "off"
+        "aria-valid-attr-value": "off"
       }
     ]
   }

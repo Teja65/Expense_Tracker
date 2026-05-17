@@ -1,0 +1,44 @@
+# Node Modules
+node_modules/
+
+# Environment Variables
+.env
+
+# Firebase Admin Secret File
+firebase-service-account.json
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Build Files
+dist/
+build/
+
+# Coverage
+coverage/
+
+# Vite
+.vite/
+
+# IDE Files
+.vscode/
+.idea/
+
+# Temporary Files
+*.tmp
+*.temp
+
+# Uploads
+uploads/
+
+# Cache
+.cache/
+
+.env
+serviceAccountKey.json
