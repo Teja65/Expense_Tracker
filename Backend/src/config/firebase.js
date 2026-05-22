@@ -13,6 +13,18 @@ const readServiceAccount = () => {
     return serviceAccount;
   }
 
+  if (
+    process.env.FIREBASE_PROJECT_ID &&
+    process.env.FIREBASE_CLIENT_EMAIL &&
+    process.env.FIREBASE_PRIVATE_KEY
+  ) {
+    return {
+      project_id: process.env.FIREBASE_PROJECT_ID,
+      client_email: process.env.FIREBASE_CLIENT_EMAIL,
+      private_key: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    };
+  }
+
   const localPaths = [
     path.resolve(process.cwd(), 'serviceAccountKey.json'),
     path.resolve(process.cwd(), 'firebase-service-account.json'),
