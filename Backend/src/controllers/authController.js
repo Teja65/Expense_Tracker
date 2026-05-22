@@ -49,7 +49,9 @@ export const login = async (req, res) => {
     };
 
     const user = await User.findOneAndUpdate(
-      { firebaseUid: decoded.uid },
+      {
+        $or: [{ firebaseUid: decoded.uid }, { email: decoded.email }],
+      },
       userData,
       {
         new: true,

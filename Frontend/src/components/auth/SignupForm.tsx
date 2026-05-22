@@ -9,7 +9,7 @@ import {
 } from 'firebase/auth';
 
 import { auth } from '../../services/firebase';
-import { loginUser } from '../../features/auth/authAPI';
+import { checkAuthEmail, loginUser } from '../../features/auth/authAPI';
 import { useAppDispatch } from '../../app/hooks';
 import { setUser } from '../../features/auth/authSlice';
 
@@ -40,6 +40,9 @@ const getSignupErrorMessage = (error: unknown) => {
     case 'auth/network-request-failed':
       return 'Network error. Please check your connection and try again.';
 
+    case 'auth/operation-not-allowed':
+      return 'Email/password signup is not enabled in Firebase Authentication.';
+
     default:
       return 'Signup failed. Please try again.';
   }
@@ -64,10 +67,29 @@ export default function SignupForm() {
   });
 
   const onSubmit = async (data: FormData) => {
+    const email = data.email.trim().toLowerCase();
+
     try {
+      const existingEmail = await checkAuthEmail(email).catch(() => null);
+
+      if (existingEmail?.exists) {
+        if (
+          existingEmail.provider === 'google' ||
+          existingEmail.providers.includes('google.com')
+        ) {
+          toast.error(
+            'This email is already linked with Google. Please use Continue with Google.',
+          );
+          return;
+        }
+
+        toast.error('An account with this email already exists. Please login.');
+        return;
+      }
+
       const credential = await createUserWithEmailAndPassword(
         auth,
-        data.email.trim(),
+        email,
         data.password,
       );
 
