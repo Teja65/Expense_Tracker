@@ -9,13 +9,20 @@
 
 import express from 'express';
 
-import { login, getMe, logout } from '../controllers/authController.js';
+import {
+  login,
+  getMe,
+  logout,
+  checkEmail,
+} from '../controllers/authController.js';
 
 import authMiddleware from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
 router.post('/login', login);
+
+router.get('/check-email', checkEmail);
 
 router.get('/me', authMiddleware, getMe);
 

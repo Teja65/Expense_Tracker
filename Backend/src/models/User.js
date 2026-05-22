@@ -20,6 +20,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: '',
     },
+    provider: {
+      type: String,
+      enum: ['password', 'google'],
+      default: 'password',
+    },
     role: {
       type: String,
       default: 'USER',

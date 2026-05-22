@@ -1,11 +1,5 @@
 import DashboardLayout from '../components/layout/DashboardLayout';
 
-import ExpensePieChart from '../components/charts/ExpensePieChart';
-
-import ExpenseBarChart from '../components/charts/ExpenseBarChart';
-
-import ExpenseLineChart from '../components/charts/ExpenseLineChart';
-
 import { useAppSelector } from '../app/hooks';
 
 export default function Dashboard() {
@@ -39,18 +33,10 @@ export default function Dashboard() {
             <h2 className='text-lg font-medium'>Categories</h2>
 
             <p className='mt-4 text-4xl font-black'>
-              {new Set(expenses.map((e) => e.category)).size}
+              {new Set(expenses.map((expense) => expense.category)).size}
             </p>
           </div>
         </div>
-
-        <div className='grid gap-8 lg:grid-cols-2'>
-          <ExpensePieChart />
-
-          <ExpenseBarChart />
-        </div>
-
-        <ExpenseLineChart />
       </div>
     </DashboardLayout>
   );

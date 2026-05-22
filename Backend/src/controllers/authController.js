@@ -16,6 +16,12 @@ const toAuthUser = (user) => ({
   picture: user.picture || '',
 });
 
+const getProvider = (decoded) => {
+  const signInProvider = decoded.firebase?.sign_in_provider;
+
+  return signInProvider === 'google.com' ? 'google' : 'password';
+};
+
 export const login = async (req, res) => {
   try {
     const { token } = req.body;
@@ -39,6 +45,7 @@ export const login = async (req, res) => {
       email: decoded.email,
       name: decoded.name || decoded.email?.split('@')[0] || 'User',
       picture: decoded.picture || '',
+      provider: getProvider(decoded),
     };
 
     const user = await User.findOneAndUpdate(
@@ -63,6 +70,45 @@ export const login = async (req, res) => {
       message: 'Authentication failed',
     });
   }
+};
+
+export const checkEmail = async (req, res) => {
+  const email = String(req.query.email || '').trim().toLowerCase();
+
+  if (!email) {
+    return res.status(400).json({
+      message: 'Email is required',
+    });
+  }
+
+  const savedUser = await User.findOne({ email }).select('email provider');
+
+  try {
+    const firebaseUser = await admin.auth().getUserByEmail(email);
+    const providers = firebaseUser.providerData.map(
+      (provider) => provider.providerId,
+    );
+
+    const provider = providers.includes('google.com') ? 'google' : 'password';
+
+    return res.status(200).json({
+      exists: true,
+      provider,
+      providers,
+    });
+  } catch (error) {
+    if (error.code !== 'auth/user-not-found') {
+      return res.status(500).json({
+        message: 'Unable to check email provider',
+      });
+    }
+  }
+
+  res.status(200).json({
+    exists: Boolean(savedUser),
+    provider: savedUser?.provider || null,
+    providers: savedUser?.provider ? [savedUser.provider] : [],
+  });
 };
 
 export const getMe = async (req, res) => {

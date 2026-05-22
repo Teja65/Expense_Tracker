@@ -8,7 +8,7 @@ export default function Home() {
 
   return (
     <div className='min-h-screen bg-slate-50 dark:bg-slate-950'>
-      <section className='mx-auto flex max-w-7xl flex-col items-center px-6 py-24 text-center'>
+      <section className='page-enter mx-auto flex max-w-7xl flex-col items-center px-6 py-24 text-center'>
         <div className='rounded-full bg-cyan-100 px-5 py-2 text-sm font-semibold text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-300'>
           Smart Expense Tracking
         </div>
@@ -53,7 +53,7 @@ export default function Home() {
         </div>
 
         <div className='mt-20 grid w-full gap-6 md:grid-cols-3'>
-          <div className='rounded-3xl bg-white p-8 shadow-lg dark:bg-slate-900'>
+          <div className='animate-rise rounded-3xl bg-white p-8 shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-slate-900'>
             <Wallet className='text-cyan-600' />
 
             <h2 className='mt-5 text-2xl font-bold'>Expense Tracking</h2>
@@ -63,7 +63,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className='rounded-3xl bg-white p-8 shadow-lg dark:bg-slate-900'>
+          <div className='animate-rise rounded-3xl bg-white p-8 shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-slate-900'>
             <PieChart className='text-cyan-600' />
 
             <h2 className='mt-5 text-2xl font-bold'>Analytics Dashboard</h2>
@@ -73,7 +73,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className='rounded-3xl bg-white p-8 shadow-lg dark:bg-slate-900'>
+          <div className='animate-rise rounded-3xl bg-white p-8 shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-slate-900'>
             <ShieldCheck className='text-cyan-600' />
 
             <h2 className='mt-5 text-2xl font-bold'>Secure JWT Auth</h2>
