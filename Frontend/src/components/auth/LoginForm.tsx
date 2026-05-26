@@ -2,6 +2,8 @@ import { useForm } from 'react-hook-form';
 
 import { useNavigate } from 'react-router-dom';
 
+import { useState } from 'react';
+
 import toast from 'react-hot-toast';
 
 import {
@@ -101,10 +103,34 @@ const getLoginErrorMessage = (error: unknown) => {
   }
 };
 
+const getGoogleAuthErrorMessage = (error: unknown) => {
+  const code = getFirebaseCode(error);
+
+  switch (code) {
+    case 'auth/popup-closed-by-user':
+    case 'auth/cancelled-popup-request':
+      return null;
+
+    case 'auth/popup-blocked':
+      return 'Google sign-in popup was blocked. Please allow popups and try again.';
+
+    case 'auth/unauthorized-domain':
+      return 'This domain is not authorized in Firebase Authentication.';
+
+    case 'auth/network-request-failed':
+      return 'Network error during Google sign-in. Please check your connection and try again.';
+
+    default:
+      return 'Google sign-in failed. Please try again.';
+  }
+};
+
 export default function LoginForm() {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
+
+  const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false);
 
   const {
     register,
@@ -157,10 +183,25 @@ export default function LoginForm() {
   };
 
   const handleGoogleLogin = async () => {
+    if (isGoogleSubmitting) {
+      return;
+    }
+
+    setIsGoogleSubmitting(true);
+
     try {
       const provider = new GoogleAuthProvider();
 
-      const credential = await signInWithPopup(auth, provider);
+      const credential = await signInWithPopup(auth, provider).catch((error) => {
+        const message = getGoogleAuthErrorMessage(error);
+
+        if (message) {
+          toast.error(message);
+        }
+
+        throw error;
+      });
+
       const token = await credential.user.getIdToken();
       const user = await loginUser(token);
 
@@ -172,12 +213,18 @@ export default function LoginForm() {
 
       navigate('/dashboard');
     } catch (error) {
-      toast.error(getLoginErrorMessage(error));
+      if (!getFirebaseCode(error).startsWith('auth/')) {
+        toast.error(
+          'Google authentication succeeded, but the app could not start your session. Please try again.',
+        );
+      }
+    } finally {
+      setIsGoogleSubmitting(false);
     }
   };
 
   return (
-    <div className='rounded-3xl bg-white p-8 shadow-2xl dark:bg-slate-900'>
+    <div className='rounded-3xl bg-white p-8 shadow-2xl dark:bg-zinc-900'>
       <h2 className='mb-6 text-center text-3xl font-black'>Login</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className='space-y-5'>
@@ -192,7 +239,7 @@ export default function LoginForm() {
                 message: 'Please enter a valid email address',
               },
             })}
-            className='w-full rounded-2xl border border-slate-300 px-4 py-3 dark:border-slate-700 dark:bg-slate-950'
+            className='w-full rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
           />
 
           {errors.email && (
@@ -211,7 +258,7 @@ export default function LoginForm() {
                 message: 'Password must be at least 6 characters',
               },
             })}
-            className='w-full rounded-2xl border border-slate-300 px-4 py-3 dark:border-slate-700 dark:bg-slate-950'
+            className='w-full rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
           />
 
           {errors.password && (
@@ -223,7 +270,7 @@ export default function LoginForm() {
 
         <button
           disabled={isSubmitting}
-          className='w-full rounded-2xl bg-cyan-600 py-3 font-bold text-white hover:bg-cyan-700 disabled:cursor-not-allowed disabled:opacity-60'
+          className='w-full rounded-2xl bg-emerald-600 py-3 font-bold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60'
         >
           {isSubmitting ? 'Signing in...' : 'Login'}
         </button>
@@ -231,10 +278,11 @@ export default function LoginForm() {
 
       <button
         type='button'
+        disabled={isSubmitting || isGoogleSubmitting}
         onClick={handleGoogleLogin}
-        className='mt-4 w-full rounded-2xl border border-slate-300 py-3 font-semibold dark:border-slate-700'
+        className='mt-4 w-full rounded-2xl border border-zinc-300 py-3 font-semibold disabled:cursor-not-allowed disabled:opacity-60 dark:border-zinc-700'
       >
-        Continue with Google
+        {isGoogleSubmitting ? 'Waiting for Google...' : 'Continue with Google'}
       </button>
     </div>
   );

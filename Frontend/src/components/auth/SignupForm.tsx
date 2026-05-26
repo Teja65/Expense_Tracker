@@ -118,7 +118,7 @@ export default function SignupForm() {
   };
 
   return (
-    <div className='rounded-3xl bg-white p-8 shadow-2xl dark:bg-slate-900'>
+    <div className='rounded-3xl bg-white p-8 shadow-2xl dark:bg-zinc-900'>
       <h2 className='mb-6 text-center text-3xl font-black'>Create Account</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className='space-y-5'>
@@ -133,7 +133,7 @@ export default function SignupForm() {
                 message: 'Name must be at least 2 characters',
               },
             })}
-            className='w-full rounded-2xl border border-slate-300 px-4 py-3 dark:border-slate-700 dark:bg-slate-950'
+            className='w-full rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
           />
 
           {errors.name && (
@@ -152,7 +152,7 @@ export default function SignupForm() {
                 message: 'Please enter a valid email address',
               },
             })}
-            className='w-full rounded-2xl border border-slate-300 px-4 py-3 dark:border-slate-700 dark:bg-slate-950'
+            className='w-full rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
           />
 
           {errors.email && (
@@ -171,7 +171,7 @@ export default function SignupForm() {
                 message: 'Password must be at least 6 characters',
               },
             })}
-            className='w-full rounded-2xl border border-slate-300 px-4 py-3 dark:border-slate-700 dark:bg-slate-950'
+            className='w-full rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
           />
 
           {errors.password && (
@@ -183,7 +183,7 @@ export default function SignupForm() {
 
         <button
           disabled={isSubmitting}
-          className='w-full rounded-2xl bg-cyan-600 py-3 font-bold text-white hover:bg-cyan-700 disabled:cursor-not-allowed disabled:opacity-60'
+          className='w-full rounded-2xl bg-emerald-600 py-3 font-bold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60'
         >
           {isSubmitting ? 'Creating account...' : 'Signup'}
         </button>

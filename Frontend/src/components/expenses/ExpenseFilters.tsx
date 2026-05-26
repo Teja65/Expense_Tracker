@@ -21,19 +21,19 @@ export default function ExpenseFilters({
   setSort,
 }: Props) {
   return (
-    <div className='grid gap-4 rounded-3xl bg-white p-6 shadow-xl dark:bg-slate-900 md:grid-cols-3'>
+    <div className='grid gap-4 rounded-3xl bg-white p-6 shadow-xl dark:bg-zinc-900 md:grid-cols-3'>
       <input
         type='text'
         placeholder='Search expenses'
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className='rounded-2xl border border-slate-300 px-4 py-3 dark:border-slate-700 dark:bg-slate-950'
+        className='rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
       />
 
       <select
         value={category}
         onChange={(e) => setCategory(e.target.value)}
-        className='rounded-2xl border border-slate-300 px-4 py-3 dark:border-slate-700 dark:bg-slate-950'
+        className='rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
       >
         <option value=''>All Categories</option>
 
@@ -49,7 +49,7 @@ export default function ExpenseFilters({
       <select
         value={sort}
         onChange={(e) => setSort(e.target.value)}
-        className='rounded-2xl border border-slate-300 px-4 py-3 dark:border-slate-700 dark:bg-slate-950'
+        className='rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
       >
         <option value='latest'>Latest</option>
 

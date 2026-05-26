@@ -11,7 +11,7 @@ import { useMemo } from 'react';
 
 import { useAppSelector } from '../../app/hooks';
 
-const COLORS = ['#06b6d4', '#0f172a', '#14b8a6', '#8b5cf6', '#f97316'];
+const COLORS = ['#059669', '#18181b', '#f59e0b', '#7c3aed', '#dc2626'];
 
 export default function ExpensePieChart() {
   const expenses = useAppSelector((state) => state.expenses.expenses);
@@ -31,7 +31,7 @@ export default function ExpensePieChart() {
   }, [expenses]);
 
   return (
-    <div className='animate-rise rounded-3xl border border-slate-200 bg-white p-5 shadow-xl dark:border-slate-800 dark:bg-slate-900'>
+    <div className='animate-rise rounded-3xl border border-zinc-200 bg-white p-5 shadow-xl dark:border-zinc-800 dark:bg-zinc-900'>
       <h2 className='mb-5 text-xl font-bold'>Category Spending</h2>
 
       <div className='h-64 overflow-hidden'>
@@ -59,7 +59,7 @@ export default function ExpensePieChart() {
             </PieChart>
           </ResponsiveContainer>
         ) : (
-          <div className='flex h-full items-center justify-center text-slate-500'>
+          <div className='flex h-full items-center justify-center text-zinc-500'>
             No spending data yet
           </div>
         )}

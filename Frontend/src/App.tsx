@@ -64,7 +64,7 @@ function App() {
         <ThemeProvider>
           <AuthListener />
 
-          <div className='min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100'>
+          <div className='min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100'>
             <Navbar />
 
             <AppRoutes />

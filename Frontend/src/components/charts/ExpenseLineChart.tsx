@@ -31,7 +31,7 @@ export default function ExpenseLineChart() {
   }, [expenses]);
 
   return (
-    <div className='h-64 rounded-3xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900'>
+    <div className='h-64 rounded-3xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900'>
       <h2 className='mb-5 text-xl font-bold'>Expense Trend</h2>
 
       <ResponsiveContainer width='100%' height='100%'>
@@ -47,7 +47,7 @@ export default function ExpenseLineChart() {
           <Line
             type='monotone'
             dataKey='amount'
-            stroke='#06b6d4'
+            stroke='#059669'
             strokeWidth={3}
           />
         </LineChart>

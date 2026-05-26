@@ -78,7 +78,7 @@ export default function ExpenseForm({ editingExpense, onCancelEdit }: Props) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className='rounded-3xl bg-white p-8 shadow-2xl dark:bg-slate-900'
+      className='rounded-3xl bg-white p-8 shadow-2xl dark:bg-zinc-900'
     >
       <h2 className='mb-6 text-3xl font-black'>
         {editingExpense ? 'Edit Expense' : 'Add Expense'}
@@ -93,7 +93,7 @@ export default function ExpenseForm({ editingExpense, onCancelEdit }: Props) {
             {...register('title', {
               required: 'Title is required',
             })}
-            className='w-full rounded-2xl border border-slate-300 px-4 py-3 dark:border-slate-700 dark:bg-slate-950'
+            className='w-full rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
           />
           {errors.title && (
             <p className='mt-2 text-sm text-red-500'>{errors.title.message}</p>
@@ -113,7 +113,7 @@ export default function ExpenseForm({ editingExpense, onCancelEdit }: Props) {
                 message: 'Amount must be greater than 0',
               },
             })}
-            className='w-full rounded-2xl border border-slate-300 px-4 py-3 dark:border-slate-700 dark:bg-slate-950'
+            className='w-full rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
           />
           {errors.amount && (
             <p className='mt-2 text-sm text-red-500'>{errors.amount.message}</p>
@@ -126,7 +126,7 @@ export default function ExpenseForm({ editingExpense, onCancelEdit }: Props) {
             {...register('category', {
               required: 'Category is required',
             })}
-            className='w-full rounded-2xl border border-slate-300 px-4 py-3 dark:border-slate-700 dark:bg-slate-950'
+            className='w-full rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
           >
             {categories.map((category) => (
               <option key={category} value={category}>
@@ -148,7 +148,7 @@ export default function ExpenseForm({ editingExpense, onCancelEdit }: Props) {
             {...register('date', {
               required: 'Date is required',
             })}
-            className='w-full rounded-2xl border border-slate-300 px-4 py-3 dark:border-slate-700 dark:bg-slate-950'
+            className='w-full rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
           />
           {errors.date && (
             <p className='mt-2 text-sm text-red-500'>{errors.date.message}</p>
@@ -159,7 +159,7 @@ export default function ExpenseForm({ editingExpense, onCancelEdit }: Props) {
       <div className='mt-8 flex flex-col gap-3 sm:flex-row'>
         <button
           disabled={isSubmitting}
-          className='flex-1 rounded-2xl bg-cyan-600 py-4 text-lg font-bold text-white hover:bg-cyan-700 disabled:cursor-not-allowed disabled:opacity-60'
+          className='flex-1 rounded-2xl bg-emerald-600 py-4 text-lg font-bold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60'
         >
           {isSubmitting
             ? 'Saving...'
@@ -172,7 +172,7 @@ export default function ExpenseForm({ editingExpense, onCancelEdit }: Props) {
           <button
             type='button'
             onClick={onCancelEdit}
-            className='rounded-2xl border border-slate-300 px-6 py-4 font-semibold dark:border-slate-700'
+            className='rounded-2xl border border-zinc-300 px-6 py-4 font-semibold dark:border-zinc-700'
           >
             Cancel
           </button>

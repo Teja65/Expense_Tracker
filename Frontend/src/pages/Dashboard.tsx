@@ -13,23 +13,23 @@ export default function Dashboard() {
         <div>
           <h1 className='text-4xl font-black'>Dashboard</h1>
 
-          <p className='mt-2 text-slate-500'>Overview of your expenses</p>
+          <p className='mt-2 text-zinc-500'>Overview of your expenses</p>
         </div>
 
         <div className='grid gap-6 md:grid-cols-3'>
-          <div className='rounded-3xl bg-cyan-600 p-8 text-white shadow-xl'>
+          <div className='rounded-3xl bg-emerald-600 p-8 text-white shadow-xl'>
             <h2 className='text-lg font-medium'>Total Expenses</h2>
 
             <p className='mt-4 text-4xl font-black'>₹{total}</p>
           </div>
 
-          <div className='rounded-3xl bg-white p-8 shadow-xl dark:bg-slate-900'>
+          <div className='rounded-3xl bg-white p-8 shadow-xl dark:bg-zinc-900'>
             <h2 className='text-lg font-medium'>Transactions</h2>
 
             <p className='mt-4 text-4xl font-black'>{expenses.length}</p>
           </div>
 
-          <div className='rounded-3xl bg-white p-8 shadow-xl dark:bg-slate-900'>
+          <div className='rounded-3xl bg-white p-8 shadow-xl dark:bg-zinc-900'>
             <h2 className='text-lg font-medium'>Categories</h2>
 
             <p className='mt-4 text-4xl font-black'>
