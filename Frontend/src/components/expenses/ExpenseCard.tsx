@@ -10,20 +10,20 @@ type Props = {
 
 export default function ExpenseCard({ expense, onEdit, onDelete }: Props) {
   return (
-    <div className='rounded-3xl bg-white p-6 shadow-xl transition hover:shadow-2xl dark:bg-slate-900'>
+    <div className='rounded-3xl bg-white p-6 shadow-xl transition hover:shadow-2xl dark:bg-zinc-900'>
       <div className='flex items-start justify-between gap-4'>
         <div>
           <h3 className='text-xl font-bold'>{expense.title}</h3>
 
-          <p className='mt-1 text-sm text-slate-500'>{expense.category}</p>
+          <p className='mt-1 text-sm text-zinc-500'>{expense.category}</p>
         </div>
 
         <div className='text-right'>
-          <p className='text-2xl font-black text-cyan-600'>
+          <p className='text-2xl font-black text-emerald-600'>
             ₹{expense.amount}
           </p>
 
-          <p className='text-sm text-slate-500'>{expense.date}</p>
+          <p className='text-sm text-zinc-500'>{expense.date}</p>
         </div>
       </div>
 
@@ -31,7 +31,7 @@ export default function ExpenseCard({ expense, onEdit, onDelete }: Props) {
         <button
           type='button'
           onClick={() => onEdit?.(expense)}
-          className='flex items-center gap-2 rounded-2xl border border-slate-300 px-4 py-2 font-semibold dark:border-slate-700'
+          className='flex items-center gap-2 rounded-2xl border border-zinc-300 px-4 py-2 font-semibold dark:border-zinc-700'
         >
           <Pencil size={16} />
           Edit

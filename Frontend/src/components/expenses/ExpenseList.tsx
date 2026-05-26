@@ -11,10 +11,10 @@ type Props = {
 export default function ExpenseList({ expenses, onEdit, onDelete }: Props) {
   if (!expenses.length) {
     return (
-      <div className='rounded-3xl bg-white p-10 text-center shadow-xl dark:bg-slate-900'>
+      <div className='rounded-3xl bg-white p-10 text-center shadow-xl dark:bg-zinc-900'>
         <h2 className='text-2xl font-black'>No Expenses Found</h2>
 
-        <p className='mt-3 text-slate-500'>Add your first expense</p>
+        <p className='mt-3 text-zinc-500'>Add your first expense</p>
       </div>
     );
   }

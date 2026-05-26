@@ -6,9 +6,9 @@ type Props = {
 
 export default function ExpenseTable({ expenses }: Props) {
   return (
-    <div className='overflow-x-auto rounded-3xl bg-white shadow-xl dark:bg-slate-900'>
+    <div className='overflow-x-auto rounded-3xl bg-white shadow-xl dark:bg-zinc-900'>
       <table className='w-full min-w-[700px]'>
-        <thead className='border-b border-slate-200 dark:border-slate-700'>
+        <thead className='border-b border-zinc-200 dark:border-zinc-700'>
           <tr>
             <th className='px-6 py-4 text-left'>Title</th>
 
@@ -24,13 +24,13 @@ export default function ExpenseTable({ expenses }: Props) {
           {expenses.map((expense) => (
             <tr
               key={expense.id}
-              className='border-b border-slate-100 dark:border-slate-800'
+              className='border-b border-zinc-100 dark:border-zinc-800'
             >
               <td className='px-6 py-4 font-semibold'>{expense.title}</td>
 
               <td className='px-6 py-4'>{expense.category}</td>
 
-              <td className='px-6 py-4 text-cyan-600'>₹{expense.amount}</td>
+              <td className='px-6 py-4 text-emerald-600'>₹{expense.amount}</td>
 
               <td className='px-6 py-4'>{expense.date}</td>
             </tr>

@@ -40,7 +40,7 @@ export default function NotificationBell() {
         return <AlertTriangle className='text-yellow-500' size={18} />;
 
       default:
-        return <Info className='text-cyan-500' size={18} />;
+        return <Info className='text-emerald-500' size={18} />;
     }
   };
 
@@ -49,7 +49,7 @@ export default function NotificationBell() {
       {/* Bell Button */}
       <button
         onClick={() => setOpen(!open)}
-        className='relative rounded-full border border-slate-200 bg-white p-2 transition hover:scale-105 dark:border-slate-700 dark:bg-slate-900'
+        className='relative rounded-full border border-zinc-200 bg-white p-2 transition hover:scale-105 dark:border-zinc-700 dark:bg-zinc-900'
       >
         <Bell size={20} />
 
@@ -62,9 +62,9 @@ export default function NotificationBell() {
 
       {/* Dropdown */}
       {open && (
-        <div className='absolute right-0 top-14 z-50 w-96 rounded-3xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-950'>
+        <div className='absolute right-0 top-14 z-50 w-96 rounded-3xl border border-zinc-200 bg-white shadow-2xl dark:border-zinc-800 dark:bg-zinc-950'>
           {/* Header */}
-          <div className='flex items-center justify-between border-b border-slate-200 px-5 py-4 dark:border-slate-800'>
+          <div className='flex items-center justify-between border-b border-zinc-200 px-5 py-4 dark:border-zinc-800'>
             <h2 className='text-lg font-black'>Notifications</h2>
 
             {notifications.length > 0 && (
@@ -80,15 +80,15 @@ export default function NotificationBell() {
           {/* Notifications */}
           <div className='max-h-[400px] overflow-y-auto'>
             {notifications.length === 0 ? (
-              <div className='p-8 text-center text-sm text-slate-500'>
+              <div className='p-8 text-center text-sm text-zinc-500'>
                 No notifications yet
               </div>
             ) : (
               notifications.map((notification) => (
                 <div
                   key={notification.id}
-                  className={`border-b border-slate-100 p-4 transition dark:border-slate-800 ${
-                    !notification.read ? 'bg-cyan-50 dark:bg-cyan-950/20' : ''
+                  className={`border-b border-zinc-100 p-4 transition dark:border-zinc-800 ${
+                    !notification.read ? 'bg-emerald-50 dark:bg-emerald-950/20' : ''
                   }`}
                 >
                   <div className='flex items-start justify-between gap-3'>
@@ -98,11 +98,11 @@ export default function NotificationBell() {
                       <div>
                         <h3 className='font-semibold'>{notification.title}</h3>
 
-                        <p className='mt-1 text-sm text-slate-500 dark:text-slate-400'>
+                        <p className='mt-1 text-sm text-zinc-500 dark:text-zinc-400'>
                           {notification.message}
                         </p>
 
-                        <p className='mt-2 text-xs text-slate-400'>
+                        <p className='mt-2 text-xs text-zinc-400'>
                           {new Date(notification.createdAt).toLocaleString()}
                         </p>
                       </div>
@@ -112,7 +112,7 @@ export default function NotificationBell() {
                       {!notification.read && (
                         <button
                           onClick={() => dispatch(markAsRead(notification.id))}
-                          className='text-xs font-medium text-cyan-600 transition hover:text-cyan-700'
+                          className='text-xs font-medium text-emerald-600 transition hover:text-emerald-700'
                         >
                           Read
                         </button>

@@ -30,9 +30,9 @@ export default function Navbar() {
   };
 
   return (
-    <header className='border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950'>
+    <header className='border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950'>
       <div className='mx-auto flex max-w-7xl items-center justify-between px-6 py-4'>
-        <Link to='/' className='text-2xl font-black text-cyan-600'>
+        <Link to='/' className='text-2xl font-black text-emerald-600'>
           ExpenseTracker
         </Link>
 
@@ -49,7 +49,7 @@ export default function Navbar() {
           ) : (
             <Link
               to='/login'
-              className='rounded-2xl bg-cyan-600 px-5 py-2 font-semibold text-white'
+              className='rounded-2xl bg-emerald-600 px-5 py-2 font-semibold text-white'
             >
               Login
             </Link>

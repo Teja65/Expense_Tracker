@@ -13,7 +13,7 @@ export default function Reports() {
         <div>
           <h1 className='text-4xl font-black'>Reports</h1>
 
-          <p className='mt-2 text-slate-500'>Analytics and insights</p>
+          <p className='mt-2 text-zinc-500'>Analytics and insights</p>
         </div>
 
         <ExpensePieChart />

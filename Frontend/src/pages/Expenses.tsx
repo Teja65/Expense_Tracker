@@ -92,7 +92,7 @@ export default function Expenses() {
           <button
             type='button'
             onClick={() => dispatch(fetchExpenses())}
-            className='rounded-2xl border border-slate-300 px-5 py-2 font-semibold dark:border-slate-700'
+            className='rounded-2xl border border-zinc-300 px-5 py-2 font-semibold dark:border-zinc-700'
           >
             Refresh
           </button>
@@ -119,7 +119,7 @@ export default function Expenses() {
         />
 
         {loading && !expenses.length ? (
-          <div className='rounded-3xl bg-white p-10 text-center shadow-xl dark:bg-slate-900'>
+          <div className='rounded-3xl bg-white p-10 text-center shadow-xl dark:bg-zinc-900'>
             Loading expenses...
           </div>
         ) : (
