@@ -1,4 +1,5 @@
 import DashboardLayout from '../components/layout/DashboardLayout';
+import { Heading1, Heading2, Paragraph } from '../components/ui/Text';
 
 import { useAppSelector } from '../store/hooks';
 
@@ -11,30 +12,36 @@ export default function Dashboard() {
     <DashboardLayout>
       <div className='space-y-8'>
         <div>
-          <h1 className='text-4xl font-black'>Dashboard</h1>
+          <Heading1 className='text-4xl font-black'>Dashboard</Heading1>
 
-          <p className='mt-2 text-zinc-500'>Overview of your expenses</p>
+          <Paragraph className='mt-2 text-zinc-500'>
+            Overview of your expenses
+          </Paragraph>
         </div>
 
         <div className='grid gap-6 md:grid-cols-3'>
           <div className='rounded-3xl bg-emerald-600 p-8 text-white shadow-xl'>
-            <h2 className='text-lg font-medium'>Total Expenses</h2>
+            <Heading2 className='text-lg font-medium'>Total Expenses</Heading2>
 
-            <p className='mt-4 text-4xl font-black'>₹{total}</p>
+            <Paragraph className='mt-4 text-4xl font-black'>
+              Rs. {total}
+            </Paragraph>
           </div>
 
           <div className='rounded-3xl bg-white p-8 shadow-xl dark:bg-zinc-900'>
-            <h2 className='text-lg font-medium'>Transactions</h2>
+            <Heading2 className='text-lg font-medium'>Transactions</Heading2>
 
-            <p className='mt-4 text-4xl font-black'>{expenses.length}</p>
+            <Paragraph className='mt-4 text-4xl font-black'>
+              {expenses.length}
+            </Paragraph>
           </div>
 
           <div className='rounded-3xl bg-white p-8 shadow-xl dark:bg-zinc-900'>
-            <h2 className='text-lg font-medium'>Categories</h2>
+            <Heading2 className='text-lg font-medium'>Categories</Heading2>
 
-            <p className='mt-4 text-4xl font-black'>
+            <Paragraph className='mt-4 text-4xl font-black'>
               {new Set(expenses.map((expense) => expense.category)).size}
-            </p>
+            </Paragraph>
           </div>
         </div>
       </div>

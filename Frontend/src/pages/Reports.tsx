@@ -1,4 +1,5 @@
 import DashboardLayout from '../components/layout/DashboardLayout';
+import { Heading1, Paragraph } from '../components/ui/Text';
 
 import ExpensePieChart from '../components/charts/ExpensePieChart';
 
@@ -11,9 +12,11 @@ export default function Reports() {
     <DashboardLayout>
       <div className='space-y-8'>
         <div>
-          <h1 className='text-4xl font-black'>Reports</h1>
+          <Heading1 className='text-4xl font-black'>Reports</Heading1>
 
-          <p className='mt-2 text-zinc-500'>Analytics and insights</p>
+          <Paragraph className='mt-2 text-zinc-500'>
+            Analytics and insights
+          </Paragraph>
         </div>
 
         <ExpensePieChart />
