@@ -1,4 +1,5 @@
 import DashboardLayout from '../components/layout/DashboardLayout';
+import { Heading1, Paragraph } from '../components/ui/Text';
 
 import { useAppSelector } from '../store/hooks';
 import { UserRound } from 'lucide-react';
@@ -24,9 +25,9 @@ export default function Profile() {
             )}
           </div>
 
-          <h1 className='mt-6 text-4xl font-black'>{user?.name}</h1>
+          <Heading1 className='mt-6 text-4xl font-black'>{user?.name}</Heading1>
 
-          <p className='mt-2 text-zinc-500'>{user?.email}</p>
+          <Paragraph className='mt-2 text-zinc-500'>{user?.email}</Paragraph>
         </div>
       </div>
     </DashboardLayout>

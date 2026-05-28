@@ -7,6 +7,8 @@ import ExpenseForm from '../components/expenses/ExpenseForm';
 import ExpenseFilters from '../components/expenses/ExpenseFilters';
 
 import ExpenseList from '../components/expenses/ExpenseList';
+import Button from '../components/ui/Button';
+import { Heading1 } from '../components/ui/Text';
 
 import { useAppSelector } from '../store/hooks';
 import { useAppDispatch } from '../store/hooks';
@@ -87,15 +89,15 @@ export default function Expenses() {
     <DashboardLayout>
       <div className='space-y-8'>
         <div className='flex flex-wrap items-center justify-between gap-4'>
-          <h1 className='text-4xl font-black'>Expenses</h1>
+          <Heading1 className='text-4xl font-black'>Expenses</Heading1>
 
-          <button
+          <Button
             type='button'
             onClick={() => dispatch(fetchExpenses())}
             className='rounded-2xl border border-zinc-300 px-5 py-2 font-semibold dark:border-zinc-700'
           >
             Refresh
-          </button>
+          </Button>
         </div>
 
         {error && (
