@@ -1,6 +1,6 @@
 import DashboardLayout from '../components/layout/DashboardLayout';
 
-import { useAppSelector } from '../app/hooks';
+import { useAppSelector } from '../store/hooks';
 
 export default function Dashboard() {
   const expenses = useAppSelector((state) => state.expenses.expenses);

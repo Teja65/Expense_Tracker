@@ -1,0 +1,28 @@
+{
+  "home": {
+    "eyebrow": "Smart Expense Tracking",
+    "titleStart": "Track Expenses",
+    "titleHighlight": " With Powerful",
+    "titleEnd": " Analytics",
+    "description": "Manage your expenses, visualize spending trends, monitor monthly reports, and analyze category spending with modern dashboards.",
+    "actions": {
+      "dashboard": "Go to Dashboard",
+      "getStarted": "Get Started",
+      "login": "Login"
+    },
+    "features": {
+      "expenseTracking": {
+        "title": "Expense Tracking",
+        "description": "Add, edit and organize expenses with categories."
+      },
+      "analyticsDashboard": {
+        "title": "Analytics Dashboard",
+        "description": "Beautiful charts and reports powered by Recharts."
+      },
+      "secureAuth": {
+        "title": "Secure JWT Auth",
+        "description": "Firebase authentication with secure JWT backend."
+      }
+    }
+  }
+}

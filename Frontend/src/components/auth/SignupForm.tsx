@@ -10,8 +10,9 @@ import {
 
 import { auth } from '../../services/firebase';
 import { checkAuthEmail, loginUser } from '../../features/auth/authAPI';
-import { useAppDispatch } from '../../app/hooks';
-import { setUser } from '../../features/auth/authSlice';
+import { useAppDispatch } from '../../store/hooks';
+import { setUser } from '../../store/authSlice';
+import { ROUTES } from '../../routes/routes';
 
 type FormData = {
   name: string;
@@ -106,11 +107,11 @@ export default function SignupForm() {
 
         toast.success('Account created successfully');
 
-        navigate('/dashboard');
+        navigate(ROUTES.dashboard);
       } catch {
         toast.success('Account created. Please login after starting backend.');
 
-        navigate('/login');
+        navigate(ROUTES.login);
       }
     } catch (error) {
       toast.error(getSignupErrorMessage(error));

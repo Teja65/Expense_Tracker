@@ -9,7 +9,7 @@ import {
 
 import { useMemo } from 'react';
 
-import { useAppSelector } from '../../app/hooks';
+import { useAppSelector } from '../../store/hooks';
 
 const COLORS = ['#059669', '#18181b', '#f59e0b', '#7c3aed', '#dc2626'];
 

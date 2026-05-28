@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import type { Expense, ExpenseFormData, ExpenseState } from '../../types/expense';
+import type { Expense, ExpenseFormData, ExpenseState } from '../types/expense';
 import {
   createExpense,
   deleteExpenseAPI,
   getExpenses,
   updateExpenseAPI,
-} from './expenseAPI';
+} from '../features/expenses/expenseAPI';
 
 const initialState: ExpenseState = {
   expenses: [],

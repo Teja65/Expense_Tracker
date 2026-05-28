@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { ROUTES } from '../routes/routes';
 
 export default function NotFound() {
   return (
@@ -12,7 +13,7 @@ export default function NotFound() {
       </p>
 
       <Link
-        to='/'
+        to={ROUTES.home}
         className='mt-8 rounded-2xl bg-emerald-600 px-8 py-4 font-semibold text-white transition hover:bg-emerald-700'
       >
         Back Home
