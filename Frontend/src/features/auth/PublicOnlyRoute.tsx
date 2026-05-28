@@ -1,8 +1,9 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { useAppSelector } from '../../app/hooks';
+import { useAppSelector } from '../../store/hooks';
 
 import Loader from '../../components/ui/Loader';
+import { ROUTES } from '../../routes/routes';
 
 export default function PublicOnlyRoute() {
   const { user, initialized } = useAppSelector((state) => state.auth);
@@ -12,7 +13,7 @@ export default function PublicOnlyRoute() {
   }
 
   if (user) {
-    return <Navigate to='/dashboard' replace />;
+    return <Navigate to={ROUTES.dashboard} replace />;
   }
 
   return <Outlet />;

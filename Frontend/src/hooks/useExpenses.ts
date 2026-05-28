@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { useAppSelector } from '../app/hooks';
+import { useAppSelector } from '../store/hooks';
 
 export default function useExpenses() {
   const expenses = useAppSelector((state) => state.expenses.expenses);

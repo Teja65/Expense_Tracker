@@ -1,8 +1,8 @@
 import { useEffect, type ReactNode } from 'react';
 
 import Sidebar from './Sidebar';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { fetchExpenses } from '../../features/expenses/expenseSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { fetchExpenses } from '../../store/expenseSlice';
 
 type Props = {
   children: ReactNode;

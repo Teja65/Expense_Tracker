@@ -9,13 +9,13 @@ import {
 
 import { useState } from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 import {
   clearNotifications,
   markAsRead,
   removeNotification,
-} from './notificationSlice';
+} from '../../store/notificationSlice';
 
 export default function NotificationBell() {
   const [open, setOpen] = useState(false);

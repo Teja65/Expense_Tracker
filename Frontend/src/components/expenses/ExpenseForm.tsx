@@ -3,12 +3,12 @@ import { useForm } from 'react-hook-form';
 
 import toast from 'react-hot-toast';
 
-import { useAppDispatch } from '../../app/hooks';
+import { useAppDispatch } from '../../store/hooks';
 
 import {
   createExpenseAsync,
   updateExpenseAsync,
-} from '../../features/expenses/expenseSlice';
+} from '../../store/expenseSlice';
 
 import type { Expense, ExpenseFormData } from '../../types/expense';
 

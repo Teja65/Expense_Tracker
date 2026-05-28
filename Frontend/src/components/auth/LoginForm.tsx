@@ -15,8 +15,9 @@ import {
 import { auth } from '../../services/firebase';
 
 import { checkAuthEmail, loginUser } from '../../features/auth/authAPI';
-import { useAppDispatch } from '../../app/hooks';
-import { setUser } from '../../features/auth/authSlice';
+import { useAppDispatch } from '../../store/hooks';
+import { setUser } from '../../store/authSlice';
+import { ROUTES } from '../../routes/routes';
 
 type FormData = {
   email: string;
@@ -164,7 +165,7 @@ export default function LoginForm() {
 
       toast.success('Login Successful');
 
-      navigate('/dashboard');
+      navigate(ROUTES.dashboard);
     } catch (error) {
       const code = getFirebaseCode(error);
 
@@ -211,7 +212,7 @@ export default function LoginForm() {
 
       toast.success('Google Login Successful');
 
-      navigate('/dashboard');
+      navigate(ROUTES.dashboard);
     } catch (error) {
       if (!getFirebaseCode(error).startsWith('auth/')) {
         toast.error(

@@ -25,3 +25,11 @@ export type AuthResponse = {
 
   user: User;
 };
+
+export type AuthState = {
+  user: User | null;
+
+  loading: boolean;
+
+  initialized: boolean;
+};

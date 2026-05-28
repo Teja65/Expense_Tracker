@@ -2,12 +2,12 @@
 import { Provider } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
 
-import { store } from './app/store';
+import { store } from './store/store';
 
-import { setUser, clearUser, setInitialized } from './features/auth/authSlice';
-import { clearExpenses } from './features/expenses/expenseSlice';
+import { setUser, clearUser, setInitialized } from './store/authSlice';
+import { clearExpenses } from './store/expenseSlice';
 
-import { ThemeProvider } from './contexts/ThemeContext';
+import { ThemeProvider } from './types/ThemeContext';
 
 import AppRoutes from './routes/AppRoutes';
 

@@ -4,9 +4,9 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 import { auth } from '../services/firebase';
 
-import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 
-import { clearUser, setInitialized, setUser } from '../features/auth/authSlice';
+import { clearUser, setInitialized, setUser } from '../store/authSlice';
 
 import { getProfile } from '../features/auth/authAPI';
 

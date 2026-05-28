@@ -1,24 +1,10 @@
 import { createSlice, nanoid, type PayloadAction } from '@reduxjs/toolkit';
 
-export type NotificationType = 'success' | 'error' | 'info' | 'warning';
-
-export type Notification = {
-  id: string;
-
-  title: string;
-
-  message: string;
-
-  type: NotificationType;
-
-  createdAt: string;
-
-  read: boolean;
-};
-
-type NotificationState = {
-  notifications: Notification[];
-};
+import type {
+  Notification,
+  NotificationState,
+  NotificationType,
+} from '../types/notification';
 
 const initialState: NotificationState = {
   notifications: [],

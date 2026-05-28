@@ -8,12 +8,12 @@ import ExpenseFilters from '../components/expenses/ExpenseFilters';
 
 import ExpenseList from '../components/expenses/ExpenseList';
 
-import { useAppSelector } from '../app/hooks';
-import { useAppDispatch } from '../app/hooks';
+import { useAppSelector } from '../store/hooks';
+import { useAppDispatch } from '../store/hooks';
 import {
   deleteExpenseAsync,
   fetchExpenses,
-} from '../features/expenses/expenseSlice';
+} from '../store/expenseSlice';
 import type { Expense } from '../types/expense';
 import toast from 'react-hot-toast';
 

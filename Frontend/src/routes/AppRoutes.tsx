@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from '../features/auth/ProtectedRoute';
 import PublicOnlyRoute from '../features/auth/PublicOnlyRoute';
 import Loader from '../components/ui/Loader';
+import { ROUTES } from './routes';
 
 const Home = lazy(() => import('../pages/Home'));
 const Login = lazy(() => import('../pages/Login'));
@@ -19,27 +20,27 @@ export default function AppRoutes() {
     <Suspense fallback={<Loader />}>
       <Routes>
         {/* Public Routes */}
-        <Route path='/' element={<Home />} />
+        <Route path={ROUTES.home} element={<Home />} />
 
         <Route element={<PublicOnlyRoute />}>
-          <Route path='/login' element={<Login />} />
+          <Route path={ROUTES.login} element={<Login />} />
 
-          <Route path='/signup' element={<Signup />} />
+          <Route path={ROUTES.signup} element={<Signup />} />
         </Route>
 
         {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
-          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path={ROUTES.dashboard} element={<Dashboard />} />
 
-          <Route path='/expenses' element={<Expenses />} />
+          <Route path={ROUTES.expenses} element={<Expenses />} />
 
-          <Route path='/reports' element={<Reports />} />
+          <Route path={ROUTES.reports} element={<Reports />} />
 
-          <Route path='/profile' element={<Profile />} />
+          <Route path={ROUTES.profile} element={<Profile />} />
         </Route>
 
         {/* 404 */}
-        <Route path='*' element={<NotFound />} />
+        <Route path={ROUTES.notFound} element={<NotFound />} />
       </Routes>
     </Suspense>
   );

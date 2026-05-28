@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import authReducer from '../features/auth/authSlice';
+import authReducer from './authSlice';
 
-import expenseReducer from '../features/expenses/expenseSlice';
+import expenseReducer from './expenseSlice';
 
-import notificationReducer from '../features/notifications/notificationSlice';
+import notificationReducer from './notificationSlice';
 
 export const store = configureStore({
   reducer: {

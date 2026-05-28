@@ -1,6 +1,6 @@
 import DashboardLayout from '../components/layout/DashboardLayout';
 
-import { useAppSelector } from '../app/hooks';
+import { useAppSelector } from '../store/hooks';
 import { UserRound } from 'lucide-react';
 
 export default function Profile() {
