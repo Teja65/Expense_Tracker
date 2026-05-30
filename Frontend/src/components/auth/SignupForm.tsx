@@ -13,6 +13,11 @@ import { checkAuthEmail, loginUser } from '../../features/auth/authAPI';
 import { useAppDispatch } from '../../store/hooks';
 import { setUser } from '../../store/authSlice';
 import { ROUTES } from '../../routes/routes';
+import Button from '../ui/Button';
+import Form from '../ui/Form';
+import Input from '../ui/Input';
+import { Heading2, Paragraph } from '../ui/Text';
+import en from '../../en.json';
 
 type FormData = {
   name: string;
@@ -22,6 +27,10 @@ type FormData = {
   password: string;
 };
 
+const signupText = en.auth.signup;
+const authErrors = en.auth.errors;
+const validationText = en.auth.validation;
+
 const getSignupErrorMessage = (error: unknown) => {
   const code =
     typeof error === 'object' && error && 'code' in error
@@ -30,22 +39,22 @@ const getSignupErrorMessage = (error: unknown) => {
 
   switch (code) {
     case 'auth/email-already-in-use':
-      return 'An account with this email already exists. Please login instead.';
+      return authErrors.emailAlreadyInUse;
 
     case 'auth/invalid-email':
-      return 'Please enter a valid email address.';
+      return authErrors.emailInvalid;
 
     case 'auth/weak-password':
-      return 'Password should be at least 6 characters.';
+      return authErrors.weakPassword;
 
     case 'auth/network-request-failed':
-      return 'Network error. Please check your connection and try again.';
+      return authErrors.network;
 
     case 'auth/operation-not-allowed':
-      return 'Email/password signup is not enabled in Firebase Authentication.';
+      return authErrors.operationNotAllowed;
 
     default:
-      return 'Signup failed. Please try again.';
+      return authErrors.signupFailed;
   }
 };
 
@@ -78,13 +87,11 @@ export default function SignupForm() {
           existingEmail.provider === 'google' ||
           existingEmail.providers.includes('google.com')
         ) {
-          toast.error(
-            'This email is already linked with Google. Please use Continue with Google.',
-          );
+          toast.error(signupText.googleLinked);
           return;
         }
 
-        toast.error('An account with this email already exists. Please login.');
+        toast.error(signupText.existingAccount);
         return;
       }
 
@@ -105,11 +112,11 @@ export default function SignupForm() {
 
         dispatch(setUser(user));
 
-        toast.success('Account created successfully');
+        toast.success(signupText.success);
 
         navigate(ROUTES.dashboard);
       } catch {
-        toast.success('Account created. Please login after starting backend.');
+        toast.success(signupText.backendUnavailable);
 
         navigate(ROUTES.login);
       }
@@ -119,76 +126,82 @@ export default function SignupForm() {
   };
 
   return (
-    <div className='rounded-3xl bg-white p-8 shadow-2xl dark:bg-zinc-900'>
-      <h2 className='mb-6 text-center text-3xl font-black'>Create Account</h2>
+    <div className='flex min-h-screen items-center justify-center bg-zinc-50 px-6 dark:bg-zinc-950'>
+      <div className='animate-rise w-full max-w-lg rounded-3xl bg-white p-8 shadow-2xl dark:bg-zinc-900'>
+        <Heading2 className='mb-6 text-center text-3xl font-black'>
+          {signupText.title}
+        </Heading2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className='space-y-5'>
-        <div>
-          <input
-            type='text'
-            placeholder='Name'
-            {...register('name', {
-              required: 'Name is required',
-              minLength: {
-                value: 2,
-                message: 'Name must be at least 2 characters',
-              },
-            })}
-            className='w-full rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
-          />
+        <Form onSubmit={handleSubmit(onSubmit)} className='space-y-5'>
+          <div>
+            <Input
+              type='text'
+              placeholder={signupText.namePlaceholder}
+              {...register('name', {
+                required: validationText.nameRequired,
+                minLength: {
+                  value: 2,
+                  message: validationText.nameMin,
+                },
+              })}
+            />
 
-          {errors.name && (
-            <p className='mt-2 text-sm text-red-500'>{errors.name.message}</p>
-          )}
-        </div>
+            {errors.name && (
+              <Paragraph className='mt-2 text-sm text-red-500'>
+                {errors.name.message}
+              </Paragraph>
+            )}
+          </div>
 
-        <div>
-          <input
-            type='email'
-            placeholder='Email'
-            {...register('email', {
-              required: 'Email is required',
-              pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: 'Please enter a valid email address',
-              },
-            })}
-            className='w-full rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
-          />
+          <div>
+            <Input
+              type='email'
+              placeholder={signupText.emailPlaceholder}
+              {...register('email', {
+                required: validationText.emailRequired,
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: validationText.emailInvalid,
+                },
+              })}
+            />
 
-          {errors.email && (
-            <p className='mt-2 text-sm text-red-500'>{errors.email.message}</p>
-          )}
-        </div>
+            {errors.email && (
+              <Paragraph className='mt-2 text-sm text-red-500'>
+                {errors.email.message}
+              </Paragraph>
+            )}
+          </div>
 
-        <div>
-          <input
-            type='password'
-            placeholder='Password'
-            {...register('password', {
-              required: 'Password is required',
-              minLength: {
-                value: 6,
-                message: 'Password must be at least 6 characters',
-              },
-            })}
-            className='w-full rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
-          />
+          <div>
+            <Input
+              type='password'
+              placeholder={signupText.passwordPlaceholder}
+              {...register('password', {
+                required: validationText.passwordRequired,
+                minLength: {
+                  value: 6,
+                  message: validationText.passwordMin,
+                },
+              })}
+            />
 
-          {errors.password && (
-            <p className='mt-2 text-sm text-red-500'>
-              {errors.password.message}
-            </p>
-          )}
-        </div>
+            {errors.password && (
+              <Paragraph className='mt-2 text-sm text-red-500'>
+                {errors.password.message}
+              </Paragraph>
+            )}
+          </div>
 
-        <button
-          disabled={isSubmitting}
-          className='w-full rounded-2xl bg-emerald-600 py-3 font-bold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60'
-        >
-          {isSubmitting ? 'Creating account...' : 'Signup'}
-        </button>
-      </form>
+          <Button
+            type='submit'
+            disabled={isSubmitting}
+            className='w-full rounded-2xl bg-emerald-600 py-3 font-bold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60'
+          >
+            {isSubmitting ? signupText.submitting : signupText.submit}
+          </Button>
+        </Form>
+      </div>
     </div>
   );
 }

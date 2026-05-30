@@ -18,6 +18,11 @@ import { checkAuthEmail, loginUser } from '../../features/auth/authAPI';
 import { useAppDispatch } from '../../store/hooks';
 import { setUser } from '../../store/authSlice';
 import { ROUTES } from '../../routes/routes';
+import Button from '../ui/Button';
+import Form from '../ui/Form';
+import Input from '../ui/Input';
+import { Heading2, Paragraph } from '../ui/Text';
+import en from '../../en.json';
 
 type FormData = {
   email: string;
@@ -27,8 +32,9 @@ type FormData = {
 
 const GOOGLE_EMAILS_KEY = 'expense-google-login-emails';
 
-const googleLoginMessage =
-  'This email is registered with Google. Please use Continue with Google.';
+const loginText = en.auth.login;
+const authErrors = en.auth.errors;
+const validationText = en.auth.validation;
 
 const getFirebaseCode = (error: unknown) =>
   typeof error === 'object' && error && 'code' in error
@@ -84,23 +90,23 @@ const getLoginErrorMessage = (error: unknown) => {
 
   switch (code) {
     case 'auth/invalid-email':
-      return 'Please enter a valid email address.';
+      return authErrors.emailInvalid;
 
     case 'auth/user-not-found':
     case 'auth/invalid-credential':
-      return 'Invalid email or password. If you created this account with Google, use Continue with Google.';
+      return authErrors.invalidCredential;
 
     case 'auth/wrong-password':
-      return 'Incorrect password.';
+      return authErrors.wrongPassword;
 
     case 'auth/too-many-requests':
-      return 'Too many login attempts. Please try again later.';
+      return authErrors.tooManyRequests;
 
     case 'auth/network-request-failed':
-      return 'Network error. Please check your connection and try again.';
+      return authErrors.network;
 
     default:
-      return 'Login failed. Please try again.';
+      return authErrors.loginFailed;
   }
 };
 
@@ -113,16 +119,16 @@ const getGoogleAuthErrorMessage = (error: unknown) => {
       return null;
 
     case 'auth/popup-blocked':
-      return 'Google sign-in popup was blocked. Please allow popups and try again.';
+      return authErrors.popupBlocked;
 
     case 'auth/unauthorized-domain':
-      return 'This domain is not authorized in Firebase Authentication.';
+      return authErrors.unauthorizedDomain;
 
     case 'auth/network-request-failed':
-      return 'Network error during Google sign-in. Please check your connection and try again.';
+      return authErrors.googleNetwork;
 
     default:
-      return 'Google sign-in failed. Please try again.';
+      return authErrors.googleFailed;
   }
 };
 
@@ -149,7 +155,7 @@ export default function LoginForm() {
 
     try {
       if (await isGoogleOnlyEmail(email)) {
-        toast.error(googleLoginMessage);
+        toast.error(loginText.googleOnly);
         return;
       }
 
@@ -163,7 +169,7 @@ export default function LoginForm() {
 
       dispatch(setUser(user));
 
-      toast.success('Login Successful');
+      toast.success(loginText.success);
 
       navigate(ROUTES.dashboard);
     } catch (error) {
@@ -175,7 +181,7 @@ export default function LoginForm() {
           code === 'auth/user-not-found') &&
         (await isGoogleOnlyEmail(email).catch(() => false))
       ) {
-        toast.error(googleLoginMessage);
+        toast.error(loginText.googleOnly);
         return;
       }
 
@@ -210,13 +216,13 @@ export default function LoginForm() {
 
       dispatch(setUser(user));
 
-      toast.success('Google Login Successful');
+      toast.success(loginText.googleSuccess);
 
       navigate(ROUTES.dashboard);
     } catch (error) {
       if (!getFirebaseCode(error).startsWith('auth/')) {
         toast.error(
-          'Google authentication succeeded, but the app could not start your session. Please try again.',
+          loginText.backendSessionFailed,
         );
       }
     } finally {
@@ -225,66 +231,71 @@ export default function LoginForm() {
   };
 
   return (
-    <div className='rounded-3xl bg-white p-8 shadow-2xl dark:bg-zinc-900'>
-      <h2 className='mb-6 text-center text-3xl font-black'>Login</h2>
+    <div className='flex min-h-screen items-center justify-center bg-zinc-50 px-6 dark:bg-zinc-950'>
+      <div className='animate-rise w-full max-w-lg rounded-3xl bg-white p-8 shadow-2xl dark:bg-zinc-900'>
+        <Heading2 className='mb-6 text-center text-3xl font-black'>
+          {loginText.title}
+        </Heading2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className='space-y-5'>
-        <div>
-          <input
-            type='email'
-            placeholder='Email'
-            {...register('email', {
-              required: 'Email is required',
-              pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: 'Please enter a valid email address',
-              },
-            })}
-            className='w-full rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
-          />
+        <Form onSubmit={handleSubmit(onSubmit)} className='space-y-5'>
+          <div>
+            <Input
+              type='email'
+              placeholder={loginText.emailPlaceholder}
+              {...register('email', {
+                required: validationText.emailRequired,
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: validationText.emailInvalid,
+                },
+              })}
+            />
 
-          {errors.email && (
-            <p className='mt-2 text-sm text-red-500'>{errors.email.message}</p>
-          )}
-        </div>
+            {errors.email && (
+              <Paragraph className='mt-2 text-sm text-red-500'>
+                {errors.email.message}
+              </Paragraph>
+            )}
+          </div>
 
-        <div>
-          <input
-            type='password'
-            placeholder='Password'
-            {...register('password', {
-              required: 'Password is required',
-              minLength: {
-                value: 6,
-                message: 'Password must be at least 6 characters',
-              },
-            })}
-            className='w-full rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
-          />
+          <div>
+            <Input
+              type='password'
+              placeholder={loginText.passwordPlaceholder}
+              {...register('password', {
+                required: validationText.passwordRequired,
+                minLength: {
+                  value: 6,
+                  message: validationText.passwordMin,
+                },
+              })}
+            />
 
-          {errors.password && (
-            <p className='mt-2 text-sm text-red-500'>
-              {errors.password.message}
-            </p>
-          )}
-        </div>
+            {errors.password && (
+              <Paragraph className='mt-2 text-sm text-red-500'>
+                {errors.password.message}
+              </Paragraph>
+            )}
+          </div>
 
-        <button
-          disabled={isSubmitting}
-          className='w-full rounded-2xl bg-emerald-600 py-3 font-bold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60'
+          <Button
+            type='submit'
+            disabled={isSubmitting}
+            className='w-full rounded-2xl bg-emerald-600 py-3 font-bold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60'
+          >
+            {isSubmitting ? loginText.submitting : loginText.submit}
+          </Button>
+        </Form>
+
+        <Button
+          type='button'
+          disabled={isSubmitting || isGoogleSubmitting}
+          onClick={handleGoogleLogin}
+          className='mt-4 w-full rounded-2xl border border-zinc-300 py-3 font-semibold disabled:cursor-not-allowed disabled:opacity-60 dark:border-zinc-700'
         >
-          {isSubmitting ? 'Signing in...' : 'Login'}
-        </button>
-      </form>
-
-      <button
-        type='button'
-        disabled={isSubmitting || isGoogleSubmitting}
-        onClick={handleGoogleLogin}
-        className='mt-4 w-full rounded-2xl border border-zinc-300 py-3 font-semibold disabled:cursor-not-allowed disabled:opacity-60 dark:border-zinc-700'
-      >
-        {isGoogleSubmitting ? 'Waiting for Google...' : 'Continue with Google'}
-      </button>
+          {isGoogleSubmitting ? loginText.googleSubmitting : loginText.google}
+        </Button>
+      </div>
     </div>
   );
 }

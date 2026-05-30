@@ -10,6 +10,8 @@ import {
 import { useMemo } from 'react';
 
 import { useAppSelector } from '../../store/hooks';
+import { Heading2 } from '../ui/Text';
+import en from '../../en.json';
 
 const COLORS = ['#059669', '#18181b', '#f59e0b', '#7c3aed', '#dc2626'];
 
@@ -32,7 +34,9 @@ export default function ExpensePieChart() {
 
   return (
     <div className='animate-rise rounded-3xl border border-zinc-200 bg-white p-5 shadow-xl dark:border-zinc-800 dark:bg-zinc-900'>
-      <h2 className='mb-5 text-xl font-bold'>Category Spending</h2>
+      <Heading2 className='mb-5 text-xl font-bold'>
+        {en.charts.categorySpending}
+      </Heading2>
 
       <div className='h-64 overflow-hidden'>
         {chartData.length > 0 ? (
@@ -60,7 +64,7 @@ export default function ExpensePieChart() {
           </ResponsiveContainer>
         ) : (
           <div className='flex h-full items-center justify-center text-zinc-500'>
-            No spending data yet
+            {en.charts.noSpendingData}
           </div>
         )}
       </div>
