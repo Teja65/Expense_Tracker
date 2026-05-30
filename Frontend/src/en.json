@@ -1,4 +1,8 @@
 {
+  "app": {
+    "name": "Expense Tracker",
+    "brand": "ExpenseTracker"
+  },
   "home": {
     "eyebrow": "Smart Expense Tracking",
     "titleStart": "Track Expenses",
@@ -24,5 +28,181 @@
         "description": "Firebase authentication with secure JWT backend."
       }
     }
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "emailPlaceholder": "Email",
+      "passwordPlaceholder": "Password",
+      "submit": "Login",
+      "submitting": "Signing in...",
+      "google": "Continue with Google",
+      "googleSubmitting": "Waiting for Google...",
+      "success": "Login Successful",
+      "googleSuccess": "Google Login Successful",
+      "googleOnly": "This email is registered with Google. Please use Continue with Google.",
+      "backendSessionFailed": "Google authentication succeeded, but the app could not start your session. Please try again."
+    },
+    "signup": {
+      "title": "Create Account",
+      "namePlaceholder": "Name",
+      "emailPlaceholder": "Email",
+      "passwordPlaceholder": "Password",
+      "submit": "Signup",
+      "submitting": "Creating account...",
+      "success": "Account created successfully",
+      "backendUnavailable": "Account created. Please login after starting backend.",
+      "googleLinked": "This email is already linked with Google. Please use Continue with Google.",
+      "existingAccount": "An account with this email already exists. Please login."
+    },
+    "validation": {
+      "nameRequired": "Name is required",
+      "nameMin": "Name must be at least 2 characters",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "passwordRequired": "Password is required",
+      "passwordMin": "Password must be at least 6 characters"
+    },
+    "errors": {
+      "emailAlreadyInUse": "An account with this email already exists. Please login instead.",
+      "emailInvalid": "Please enter a valid email address.",
+      "weakPassword": "Password should be at least 6 characters.",
+      "network": "Network error. Please check your connection and try again.",
+      "operationNotAllowed": "Email/password signup is not enabled in Firebase Authentication.",
+      "signupFailed": "Signup failed. Please try again.",
+      "invalidCredential": "Invalid email or password. If you created this account with Google, use Continue with Google.",
+      "wrongPassword": "Incorrect password.",
+      "tooManyRequests": "Too many login attempts. Please try again later.",
+      "loginFailed": "Login failed. Please try again.",
+      "popupBlocked": "Google sign-in popup was blocked. Please allow popups and try again.",
+      "unauthorizedDomain": "This domain is not authorized in Firebase Authentication.",
+      "googleNetwork": "Network error during Google sign-in. Please check your connection and try again.",
+      "googleFailed": "Google sign-in failed. Please try again."
+    }
+  },
+  "layout": {
+    "nav": {
+      "login": "Login",
+      "logout": "Logout"
+    },
+    "sidebar": {
+      "open": "Open dashboard menu",
+      "close": "Close dashboard menu",
+      "dashboard": "Dashboard",
+      "expenses": "Expenses",
+      "profile": "Profile"
+    }
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Page Not Found",
+    "description": "The page you are looking for does not exist.",
+    "backHome": "Back Home"
+  },
+  "notifications": {
+    "open": "Open notifications",
+    "title": "Notifications",
+    "clearAll": "Clear All",
+    "empty": "No notifications yet",
+    "read": "Read",
+    "remove": "Remove notification"
+  },
+  "profile": {
+    "imageAlt": "Profile"
+  },
+  "theme": {
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Quick summary of your spending activity",
+    "cards": {
+      "total": "Total Expenses",
+      "transactions": "Transactions",
+      "categories": "Categories"
+    }
+  },
+  "reports": {
+    "title": "Reports",
+    "description": "Analytics and insights from your expense history",
+    "summary": {
+      "average": "Average Transaction",
+      "highest": "Highest Expense",
+      "latest": "Latest Expense"
+    },
+    "emptyValue": "No data"
+  },
+  "expenses": {
+    "title": "Expenses",
+    "refresh": "Refresh",
+    "loading": "Loading expenses...",
+    "deleted": "Expense Deleted",
+    "deleteFailed": "Delete Failed",
+    "form": {
+      "addTitle": "Add Expense",
+      "editTitle": "Edit Expense",
+      "titleLabel": "Title",
+      "titlePlaceholder": "Expense title",
+      "amountLabel": "Amount",
+      "amountPlaceholder": "Expense amount",
+      "categoryLabel": "Category",
+      "dateLabel": "Date",
+      "saving": "Saving...",
+      "add": "Add Expense",
+      "update": "Update Expense",
+      "cancel": "Cancel",
+      "added": "Expense Added",
+      "updated": "Expense Updated",
+      "addFailed": "Add Failed",
+      "updateFailed": "Update Failed"
+    },
+    "validation": {
+      "titleRequired": "Title is required",
+      "amountRequired": "Amount is required",
+      "amountMin": "Amount must be greater than 0",
+      "categoryRequired": "Category is required",
+      "dateRequired": "Date is required"
+    },
+    "filters": {
+      "search": "Search expenses",
+      "allCategories": "All Categories",
+      "sort": {
+        "latest": "Latest",
+        "oldest": "Oldest",
+        "asc": "Amount Asc",
+        "desc": "Amount Desc"
+      }
+    },
+    "categories": [
+      "Food",
+      "Travel",
+      "Shopping",
+      "Bills",
+      "Entertainment",
+      "Health",
+      "Education",
+      "Other"
+    ],
+    "empty": {
+      "title": "No Expenses Found",
+      "description": "Add your first expense"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "table": {
+      "title": "Title",
+      "category": "Category",
+      "amount": "Amount",
+      "date": "Date"
+    }
+  },
+  "charts": {
+    "categorySpending": "Category Spending",
+    "monthlyExpenses": "Monthly Expenses",
+    "expenseTrend": "Expense Trend",
+    "noSpendingData": "No spending data yet"
   }
 }

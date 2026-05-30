@@ -3,6 +3,7 @@ import { Heading1, Paragraph } from '../components/ui/Text';
 
 import { useAppSelector } from '../store/hooks';
 import { UserRound } from 'lucide-react';
+import en from '../en.json';
 
 export default function Profile() {
   const user = useAppSelector((state) => state.auth.user);
@@ -15,7 +16,7 @@ export default function Profile() {
             {user?.picture ? (
               <img
                 src={user.picture}
-                alt='Profile'
+                alt={en.profile.imageAlt}
                 className='h-32 w-32 rounded-[1.5rem] object-cover'
               />
             ) : (

@@ -10,18 +10,21 @@ import {
   updateExpenseAsync,
 } from '../../store/expenseSlice';
 
-import type { Expense, ExpenseFormData } from '../../types/expense';
+import type {
+  Expense,
+  ExpenseCategory,
+  ExpenseFormData,
+} from '../../types/expense';
+import Button from '../ui/Button';
+import Form from '../ui/Form';
+import Input from '../ui/Input';
+import Select from '../ui/Select';
+import { Heading2, LabelText, Paragraph } from '../ui/Text';
+import { EXPENSE_CATEGORIES } from '../../types/constants';
+import en from '../../en.json';
 
-const categories = [
-  'Food',
-  'Travel',
-  'Shopping',
-  'Bills',
-  'Entertainment',
-  'Health',
-  'Education',
-  'Other',
-] as const;
+const categories = EXPENSE_CATEGORIES as ExpenseCategory[];
+const expenseText = en.expenses;
 
 type Props = {
   editingExpense?: Expense | null;
@@ -31,7 +34,7 @@ type Props = {
 const emptyForm: ExpenseFormData = {
   title: '',
   amount: 0,
-  category: 'Food',
+  category: categories[0],
   date: '',
 };
 
@@ -61,123 +64,136 @@ export default function ExpenseForm({ editingExpense, onCancelEdit }: Props) {
           }),
         ).unwrap();
 
-        toast.success('Expense Updated');
+        toast.success(expenseText.form.updated);
         onCancelEdit?.();
       } else {
         await dispatch(createExpenseAsync(data)).unwrap();
 
-        toast.success('Expense Added');
+        toast.success(expenseText.form.added);
       }
 
       reset(emptyForm);
     } catch {
-      toast.error(editingExpense ? 'Update Failed' : 'Add Failed');
+      toast.error(
+        editingExpense ? expenseText.form.updateFailed : expenseText.form.addFailed,
+      );
     }
   };
 
   return (
-    <form
+    <Form
       onSubmit={handleSubmit(onSubmit)}
       className='rounded-3xl bg-white p-8 shadow-2xl dark:bg-zinc-900'
     >
-      <h2 className='mb-6 text-3xl font-black'>
-        {editingExpense ? 'Edit Expense' : 'Add Expense'}
-      </h2>
+      <Heading2 className='mb-6 text-3xl font-black'>
+        {editingExpense ? expenseText.form.editTitle : expenseText.form.addTitle}
+      </Heading2>
 
       <div className='grid gap-6 md:grid-cols-2'>
         <div>
-          <label className='mb-2 block text-sm font-semibold'>Title</label>
-          <input
+          <LabelText className='mb-2 block text-sm font-semibold'>
+            {expenseText.form.titleLabel}
+          </LabelText>
+          <Input
             type='text'
-            placeholder='Expense title'
+            placeholder={expenseText.form.titlePlaceholder}
             {...register('title', {
-              required: 'Title is required',
+              required: expenseText.validation.titleRequired,
             })}
-            className='w-full rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
           />
           {errors.title && (
-            <p className='mt-2 text-sm text-red-500'>{errors.title.message}</p>
+            <Paragraph className='mt-2 text-sm text-red-500'>
+              {errors.title.message}
+            </Paragraph>
           )}
         </div>
 
         <div>
-          <label className='mb-2 block text-sm font-semibold'>Amount</label>
-          <input
+          <LabelText className='mb-2 block text-sm font-semibold'>
+            {expenseText.form.amountLabel}
+          </LabelText>
+          <Input
             type='number'
-            placeholder='Expense amount'
+            placeholder={expenseText.form.amountPlaceholder}
             {...register('amount', {
               valueAsNumber: true,
-              required: 'Amount is required',
+              required: expenseText.validation.amountRequired,
               min: {
                 value: 1,
-                message: 'Amount must be greater than 0',
+                message: expenseText.validation.amountMin,
               },
             })}
-            className='w-full rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
           />
           {errors.amount && (
-            <p className='mt-2 text-sm text-red-500'>{errors.amount.message}</p>
+            <Paragraph className='mt-2 text-sm text-red-500'>
+              {errors.amount.message}
+            </Paragraph>
           )}
         </div>
 
         <div>
-          <label className='mb-2 block text-sm font-semibold'>Category</label>
-          <select
+          <LabelText className='mb-2 block text-sm font-semibold'>
+            {expenseText.form.categoryLabel}
+          </LabelText>
+          <Select
             {...register('category', {
-              required: 'Category is required',
+              required: expenseText.validation.categoryRequired,
             })}
-            className='w-full rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
           >
             {categories.map((category) => (
               <option key={category} value={category}>
                 {category}
               </option>
             ))}
-          </select>
+          </Select>
           {errors.category && (
-            <p className='mt-2 text-sm text-red-500'>
+            <Paragraph className='mt-2 text-sm text-red-500'>
               {errors.category.message}
-            </p>
+            </Paragraph>
           )}
         </div>
 
         <div>
-          <label className='mb-2 block text-sm font-semibold'>Date</label>
-          <input
+          <LabelText className='mb-2 block text-sm font-semibold'>
+            {expenseText.form.dateLabel}
+          </LabelText>
+          <Input
             type='date'
             {...register('date', {
-              required: 'Date is required',
+              required: expenseText.validation.dateRequired,
             })}
-            className='w-full rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
           />
           {errors.date && (
-            <p className='mt-2 text-sm text-red-500'>{errors.date.message}</p>
+            <Paragraph className='mt-2 text-sm text-red-500'>
+              {errors.date.message}
+            </Paragraph>
           )}
         </div>
       </div>
 
       <div className='mt-8 flex flex-col gap-3 sm:flex-row'>
-        <button
+        <Button
+          type='submit'
           disabled={isSubmitting}
           className='flex-1 rounded-2xl bg-emerald-600 py-4 text-lg font-bold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60'
         >
           {isSubmitting
-            ? 'Saving...'
+            ? expenseText.form.saving
             : editingExpense
-              ? 'Update Expense'
-              : 'Add Expense'}
-        </button>
+              ? expenseText.form.update
+              : expenseText.form.add}
+        </Button>
 
         {editingExpense && (
-          <button
+          <Button
             type='button'
             onClick={onCancelEdit}
             className='rounded-2xl border border-zinc-300 px-6 py-4 font-semibold dark:border-zinc-700'
           >
-            Cancel
-          </button>
+            {expenseText.form.cancel}
+          </Button>
         )}
       </div>
-    </form>
+    </Form>
   );
 }

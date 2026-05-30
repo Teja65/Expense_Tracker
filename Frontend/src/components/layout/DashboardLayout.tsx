@@ -23,7 +23,7 @@ export default function DashboardLayout({ children }: Props) {
     <div className='flex min-h-screen'>
       <Sidebar />
 
-      <main className='page-enter flex-1 bg-zinc-50 p-8 dark:bg-zinc-950'>
+      <main className='page-enter flex-1 bg-zinc-50 p-4 dark:bg-zinc-950 md:p-8'>
         {children}
       </main>
     </div>

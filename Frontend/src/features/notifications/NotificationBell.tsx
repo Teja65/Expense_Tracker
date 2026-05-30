@@ -16,6 +16,11 @@ import {
   markAsRead,
   removeNotification,
 } from '../../store/notificationSlice';
+import Button from '../../components/ui/Button';
+import { Heading2, Heading3, Paragraph } from '../../components/ui/Text';
+import en from '../../en.json';
+
+const notificationText = en.notifications;
 
 export default function NotificationBell() {
   const [open, setOpen] = useState(false);
@@ -46,8 +51,8 @@ export default function NotificationBell() {
 
   return (
     <div className='relative'>
-      {/* Bell Button */}
-      <button
+      <Button
+        aria-label={notificationText.open}
         onClick={() => setOpen(!open)}
         className='relative rounded-full border border-zinc-200 bg-white p-2 transition hover:scale-105 dark:border-zinc-700 dark:bg-zinc-900'
       >
@@ -58,31 +63,30 @@ export default function NotificationBell() {
             {unreadCount}
           </span>
         )}
-      </button>
+      </Button>
 
-      {/* Dropdown */}
       {open && (
         <div className='absolute right-0 top-14 z-50 w-96 rounded-3xl border border-zinc-200 bg-white shadow-2xl dark:border-zinc-800 dark:bg-zinc-950'>
-          {/* Header */}
           <div className='flex items-center justify-between border-b border-zinc-200 px-5 py-4 dark:border-zinc-800'>
-            <h2 className='text-lg font-black'>Notifications</h2>
+            <Heading2 className='text-lg font-black'>
+              {notificationText.title}
+            </Heading2>
 
             {notifications.length > 0 && (
-              <button
+              <Button
                 onClick={() => dispatch(clearNotifications())}
                 className='text-sm font-medium text-red-500 transition hover:text-red-600'
               >
-                Clear All
-              </button>
+                {notificationText.clearAll}
+              </Button>
             )}
           </div>
 
-          {/* Notifications */}
           <div className='max-h-[400px] overflow-y-auto'>
             {notifications.length === 0 ? (
-              <div className='p-8 text-center text-sm text-zinc-500'>
-                No notifications yet
-              </div>
+              <Paragraph className='p-8 text-center text-sm text-zinc-500'>
+                {notificationText.empty}
+              </Paragraph>
             ) : (
               notifications.map((notification) => (
                 <div
@@ -96,36 +100,39 @@ export default function NotificationBell() {
                       {getIcon(notification.type)}
 
                       <div>
-                        <h3 className='font-semibold'>{notification.title}</h3>
+                        <Heading3 className='font-semibold'>
+                          {notification.title}
+                        </Heading3>
 
-                        <p className='mt-1 text-sm text-zinc-500 dark:text-zinc-400'>
+                        <Paragraph className='mt-1 text-sm text-zinc-500 dark:text-zinc-400'>
                           {notification.message}
-                        </p>
+                        </Paragraph>
 
-                        <p className='mt-2 text-xs text-zinc-400'>
+                        <Paragraph className='mt-2 text-xs text-zinc-400'>
                           {new Date(notification.createdAt).toLocaleString()}
-                        </p>
+                        </Paragraph>
                       </div>
                     </div>
 
                     <div className='flex items-center gap-2'>
                       {!notification.read && (
-                        <button
+                        <Button
                           onClick={() => dispatch(markAsRead(notification.id))}
                           className='text-xs font-medium text-emerald-600 transition hover:text-emerald-700'
                         >
-                          Read
-                        </button>
+                          {notificationText.read}
+                        </Button>
                       )}
 
-                      <button
+                      <Button
+                        aria-label={notificationText.remove}
                         onClick={() =>
                           dispatch(removeNotification(notification.id))
                         }
                         className='text-red-500 transition hover:text-red-600'
                       >
                         <Trash2 size={16} />
-                      </button>
+                      </Button>
                     </div>
                   </div>
                 </div>

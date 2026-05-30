@@ -18,6 +18,10 @@ import {
 } from '../store/expenseSlice';
 import type { Expense } from '../types/expense';
 import toast from 'react-hot-toast';
+import { Paragraph } from '../components/ui/Text';
+import en from '../en.json';
+
+const expensesText = en.expenses;
 
 export default function Expenses() {
   const dispatch = useAppDispatch();
@@ -75,13 +79,13 @@ export default function Expenses() {
     try {
       await dispatch(deleteExpenseAsync(id)).unwrap();
 
-      toast.success('Expense Deleted');
+      toast.success(expensesText.deleted);
 
       if (editingExpense?.id === id) {
         setEditingExpense(null);
       }
     } catch {
-      toast.error('Delete Failed');
+      toast.error(expensesText.deleteFailed);
     }
   };
 
@@ -89,21 +93,23 @@ export default function Expenses() {
     <DashboardLayout>
       <div className='space-y-8'>
         <div className='flex flex-wrap items-center justify-between gap-4'>
-          <Heading1 className='text-4xl font-black'>Expenses</Heading1>
+          <Heading1 className='text-4xl font-black'>
+            {expensesText.title}
+          </Heading1>
 
           <Button
             type='button'
             onClick={() => dispatch(fetchExpenses())}
             className='rounded-2xl border border-zinc-300 px-5 py-2 font-semibold dark:border-zinc-700'
           >
-            Refresh
+            {expensesText.refresh}
           </Button>
         </div>
 
         {error && (
-          <div className='rounded-2xl border border-red-200 bg-red-50 p-4 text-red-700 dark:border-red-900 dark:bg-red-950/30 dark:text-red-300'>
+          <Paragraph className='rounded-2xl border border-red-200 bg-red-50 p-4 text-red-700 dark:border-red-900 dark:bg-red-950/30 dark:text-red-300'>
             {error}
-          </div>
+          </Paragraph>
         )}
 
         <ExpenseForm
@@ -122,7 +128,7 @@ export default function Expenses() {
 
         {loading && !expenses.length ? (
           <div className='rounded-3xl bg-white p-10 text-center shadow-xl dark:bg-zinc-900'>
-            Loading expenses...
+            {expensesText.loading}
           </div>
         ) : (
           <ExpenseList

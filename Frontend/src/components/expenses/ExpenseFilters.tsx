@@ -1,3 +1,8 @@
+import { EXPENSE_CATEGORIES, SORT_OPTIONS } from '../../types/constants';
+import en from '../../en.json';
+import Input from '../ui/Input';
+import Select from '../ui/Select';
+
 type Props = {
   search: string;
 
@@ -12,6 +17,8 @@ type Props = {
   setSort: (value: string) => void;
 };
 
+const filterText = en.expenses.filters;
+
 export default function ExpenseFilters({
   search,
   setSearch,
@@ -22,43 +29,36 @@ export default function ExpenseFilters({
 }: Props) {
   return (
     <div className='grid gap-4 rounded-3xl bg-white p-6 shadow-xl dark:bg-zinc-900 md:grid-cols-3'>
-      <input
+      <Input
         type='text'
-        placeholder='Search expenses'
+        placeholder={filterText.search}
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className='rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
       />
 
-      <select
+      <Select
         value={category}
         onChange={(e) => setCategory(e.target.value)}
-        className='rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
       >
-        <option value=''>All Categories</option>
+        <option value=''>{filterText.allCategories}</option>
 
-        <option value='Food'>Food</option>
+        {EXPENSE_CATEGORIES.map((expenseCategory) => (
+          <option key={expenseCategory} value={expenseCategory}>
+            {expenseCategory}
+          </option>
+        ))}
+      </Select>
 
-        <option value='Travel'>Travel</option>
-
-        <option value='Shopping'>Shopping</option>
-
-        <option value='Bills'>Bills</option>
-      </select>
-
-      <select
+      <Select
         value={sort}
         onChange={(e) => setSort(e.target.value)}
-        className='rounded-2xl border border-zinc-300 px-4 py-3 dark:border-zinc-700 dark:bg-zinc-950'
       >
-        <option value='latest'>Latest</option>
-
-        <option value='oldest'>Oldest</option>
-
-        <option value='asc'>Amount Asc</option>
-
-        <option value='desc'>Amount Desc</option>
-      </select>
+        {SORT_OPTIONS.map((sortOption) => (
+          <option key={sortOption.value} value={sortOption.value}>
+            {sortOption.label}
+          </option>
+        ))}
+      </Select>
     </div>
   );
 }

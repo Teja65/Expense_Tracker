@@ -29,6 +29,10 @@ export function Heading2(props: Omit<TextProps<'h2'>, 'as'>) {
   return <Text as='h2' {...props} />;
 }
 
+export function Heading3(props: Omit<TextProps<'h3'>, 'as'>) {
+  return <Text as='h3' {...props} />;
+}
+
 export function Paragraph(props: Omit<TextProps<'p'>, 'as'>) {
   return <Text as='p' {...props} />;
 }

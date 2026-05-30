@@ -1,4 +1,6 @@
-export const APP_NAME = 'Expense Tracker';
+import en from '../en.json';
+
+export const APP_NAME = en.app.name;
 
 const rawApiUrl =
   import.meta.env.VITE_API_URL ||
@@ -8,35 +10,26 @@ export const API_BASE_URL = rawApiUrl.endsWith('/api')
   ? rawApiUrl
   : `${rawApiUrl.replace(/\/$/, '')}/api`;
 
-export const EXPENSE_CATEGORIES = [
-  'Food',
-  'Travel',
-  'Shopping',
-  'Bills',
-  'Entertainment',
-  'Health',
-  'Education',
-  'Other',
-];
+export const EXPENSE_CATEGORIES = en.expenses.categories;
 
 export const SORT_OPTIONS = [
   {
-    label: 'Latest',
+    label: en.expenses.filters.sort.latest,
     value: 'latest',
   },
 
   {
-    label: 'Oldest',
+    label: en.expenses.filters.sort.oldest,
     value: 'oldest',
   },
 
   {
-    label: 'Amount Asc',
+    label: en.expenses.filters.sort.asc,
     value: 'asc',
   },
 
   {
-    label: 'Amount Desc',
+    label: en.expenses.filters.sort.desc,
     value: 'desc',
   },
 ];

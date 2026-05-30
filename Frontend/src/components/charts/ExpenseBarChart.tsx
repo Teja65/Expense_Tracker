@@ -11,6 +11,8 @@ import {
 import { useMemo } from 'react';
 
 import { useAppSelector } from '../../store/hooks';
+import { Heading2 } from '../ui/Text';
+import en from '../../en.json';
 
 export default function ExpenseBarChart() {
   const expenses = useAppSelector((state) => state.expenses.expenses);
@@ -34,7 +36,9 @@ export default function ExpenseBarChart() {
 
   return (
     <div className='h-64 rounded-3xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900'>
-      <h2 className='mb-5 text-xl font-bold'>Monthly Expenses</h2>
+      <Heading2 className='mb-5 text-xl font-bold'>
+        {en.charts.monthlyExpenses}
+      </Heading2>
 
       <ResponsiveContainer width='100%' height='100%'>
         <BarChart data={chartData}>

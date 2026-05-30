@@ -7,11 +7,10 @@ import Loader from '../components/ui/Loader';
 import { ROUTES } from './routes';
 
 const Home = lazy(() => import('../pages/Home'));
-const Login = lazy(() => import('../pages/Login'));
-const Signup = lazy(() => import('../pages/Signup'));
+const LoginForm = lazy(() => import('../components/auth/LoginForm'));
+const SignupForm = lazy(() => import('../components/auth/SignupForm'));
 const Dashboard = lazy(() => import('../pages/Dashboard'));
 const Expenses = lazy(() => import('../pages/Expenses'));
-const Reports = lazy(() => import('../pages/Reports'));
 const Profile = lazy(() => import('../pages/Profile'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 
@@ -23,9 +22,9 @@ export default function AppRoutes() {
         <Route path={ROUTES.home} element={<Home />} />
 
         <Route element={<PublicOnlyRoute />}>
-          <Route path={ROUTES.login} element={<Login />} />
+          <Route path={ROUTES.login} element={<LoginForm />} />
 
-          <Route path={ROUTES.signup} element={<Signup />} />
+          <Route path={ROUTES.signup} element={<SignupForm />} />
         </Route>
 
         {/* Protected Routes */}
@@ -33,8 +32,6 @@ export default function AppRoutes() {
           <Route path={ROUTES.dashboard} element={<Dashboard />} />
 
           <Route path={ROUTES.expenses} element={<Expenses />} />
-
-          <Route path={ROUTES.reports} element={<Reports />} />
 
           <Route path={ROUTES.profile} element={<Profile />} />
         </Route>
